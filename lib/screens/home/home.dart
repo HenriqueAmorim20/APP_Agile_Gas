@@ -8,15 +8,21 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.brown[50],
-      appBar: AppBar(
-        title: Text('Agile Gas'),
-        backgroundColor: Colors.brown[400],
+      backgroundColor: Colors.black,
+      appBar: new AppBar(
+        title: new Text('Agile Gas', style: TextStyle(
+          color: Colors.lightGreenAccent[400],
+          fontSize: 30,
+        )),
+        backgroundColor: Colors.black54,
         elevation: 0.0,
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Logout'),
+            label: Text('Logout', style: TextStyle(
+              color: Colors.lightGreenAccent[400],
+              fontSize: 30,
+            )),
             onPressed: () async {
               await _auth.signOut();
             },

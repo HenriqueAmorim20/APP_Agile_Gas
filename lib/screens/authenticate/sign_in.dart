@@ -26,31 +26,22 @@ class _SignInState extends State<SignIn>{
   @override
   Widget build(BuildContext context){
     return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.brown[100],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        title: Text('Sign In to Agile Gas'),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Register'),
-            onPressed: () {
-              widget.toggleView(); //sinaliza para a widget que deve ser apresentada
-            },
-          )
-        ],
-      ),
+
+      backgroundColor: Colors.black,
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        decoration: BoxDecoration(
+            image: new DecorationImage(
+                image: new AssetImage("images/logo.png"), fit: BoxFit.contain),
+        ),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 20.0),
+              SizedBox(height: 400.0),
               TextFormField(
-                  decoration: textInputDecoration.copyWith(hintText: 'Email'),
-                validator: (val) => val.isEmpty ? 'Insira um e-mail' : null, //verifica se o campo está vazio
+                  decoration: textInputDecoration.copyWith(hintText: 'Email: exemplo@email.com'),
+                validator: (val) => val.isEmpty ? 'Insira um e-mail.' : null, //verifica se o campo está vazio
                 onChanged: (val){ //toda vez que o valor do campo mudar
                   setState(() => email = val); //mude o valor da variável email para o valor do campo
                 }
@@ -59,17 +50,17 @@ class _SignInState extends State<SignIn>{
               TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Senha'),
                   obscureText: true,
-                  validator: (val) => val.length < 6 ? 'Insira uma senha com +6 caracteres' : null, //verifica se a senha é menor que 6 caracteres
+                  validator: (val) => val.length < 6 ? 'Senha incorreta!' : null, //verifica se a senha é menor que 6 caracteres
                   onChanged: (val){ //toda vez que o valor do campo mudar
                     setState(() => password = val); //mude o valor da variaǘel senha para o valor do campo
                   }
               ),
               SizedBox(height: 20.0),
               RaisedButton(
-                color: Colors.pink[400],
+                color: Colors.white,
                 child: Text(
-                  'Sign In',
-                  style: TextStyle(color: Colors.white)
+                  'LOGIN',
+                  style: TextStyle(color: Colors.black)
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
@@ -83,6 +74,26 @@ class _SignInState extends State<SignIn>{
                     }
                   }
                 }
+              ),
+              RaisedButton(
+                  color: Colors.black,
+                  child: Text(
+                      'Create your account!',
+                      style: TextStyle(color: Colors.white)
+                  ),
+                  onPressed: () async {
+                    widget.toggleView();
+                  }
+              ),
+              RaisedButton(
+                  color: Colors.black,
+                  child: Text(
+                      'Forgot you password?',
+                      style: TextStyle(color: Colors.white)
+                  ),
+                  onPressed: () async {
+
+                  }
               ),
               SizedBox(height: 12.0),
               Text(
