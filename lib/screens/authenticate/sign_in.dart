@@ -52,7 +52,7 @@ class _SignInState extends State<SignIn>{
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                         hintText: 'exemplo@email.com',
-                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white),
+                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
                         prefixIcon: PictureWidget(),
                         prefixText: '  ',
                         prefixIconConstraints: BoxConstraints(
@@ -91,7 +91,7 @@ class _SignInState extends State<SignIn>{
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                         hintText: 'Senha',
-                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white),
+                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
                         labelStyle: TextStyle(color: Colors.red),
                         prefixIcon: PictureWidget2(),
                         prefixText: '  ',
@@ -117,46 +117,59 @@ class _SignInState extends State<SignIn>{
               Image.asset('images/line.png', color: Colors.white, width: 200),
 
               SizedBox(height: 40.0),
-              RaisedButton(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              padding: EdgeInsets.symmetric(horizontal: 120, vertical: 15),
-                child: Text(
-                  'LOGIN',
-                  style: TextStyle(color: Colors.black)
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightGreen.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: Offset(1, 3), // changes position of shadow
+                    ),
+                  ],
                 ),
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
-                    setState(() => loading = true);
-                    dynamic result = await _auth.signInWithEmailAndPassword(email, password); //se sim loga o usuário com essa senha e base
-                    if (result == null) { //retorna null se não estiver cadastrado
-                      setState(() {
-                        error = 'Sign in failed, credentials not registered!';
-                        loading = false;
-                      });
+                child: RaisedButton(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                    padding: EdgeInsets.symmetric(horizontal: 120, vertical: 15),
+
+                    child: Text(
+                        'LOGIN',
+                        style: TextStyle(color: Colors.black)
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
+                        setState(() => loading = true);
+                        dynamic result = await _auth.signInWithEmailAndPassword(email, password); //se sim loga o usuário com essa senha e base
+                        if (result == null) { //retorna null se não estiver cadastrado
+                          setState(() {
+                            error = 'Sign in failed, credentials not registered!';
+                            loading = false;
+                          });
+                        }
+                      }
                     }
-                  }
-                }
+                ),
               ),
+
               SizedBox(height: 30),
               RaisedButton(
-                  color: Colors.grey[850],
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  color: Colors.transparent,
 
                   child: Text(
                       'Create your account!',
-                      style: TextStyle(color: Colors.white)
+                      style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
                   ),
                   onPressed: () async {
                     widget.toggleView();
                   }
               ),
               RaisedButton(
-                  color: Colors.grey[850],
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  color: Colors.transparent,
                   child: Text(
                       'Forgot you password?',
-                      style: TextStyle(color: Colors.white)
+                      style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
                   ),
                   onPressed: () async {
 
