@@ -49,6 +49,8 @@ flutter:
     - images/username.jpg
     - images/password.png
     - images/line.png
+    - images/agile_gas_back.jpg
+    - images/agile_gas_back_2.jpg
 
 
   # To add assets to your application, add an assets section, like this:
