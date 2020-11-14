@@ -22,61 +22,169 @@ class _RegisterState extends State<Register>{
   String email = '';
   String password = '';
   String error = '';
+  String nome = '';
+  String cpf = '';
+  String username = '';
 
   @override
   Widget build(BuildContext context){
     return loading ? Loading() : Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0.0,
-        title: Text('Sign Up to Agile Gas'),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign In'),
-            onPressed: () {
+      appBar: new AppBar(
+        backgroundColor: Colors.grey[900],
+        title: IconButton(
+            iconSize: 35,
+            icon: PictureWidget5(),
+            onPressed: () async {
               widget.toggleView(); //sinaliza para a widget que deve ser apresentada
-            },
-          )
-        ],
-      ),
-      body: Container(decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/agile_gas_back.jpg'),
-            fit: BoxFit.cover,
-          ),
+            }
         ),
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+      ),
+      body: Container(
+        color: Colors.grey[900],
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
 
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 80.0),
-              Image.asset('images/logo.png'),
               SizedBox(height: 10),
-              RaisedButton(
+              Image.asset('images/logo.png', color: Colors.red),
+              SizedBox(height: 10),
+              FlatButton(
                   color: Colors.transparent,
                   child: Text(
-                      'Create your account!',
-                      style: TextStyle(color: Colors.white, fontSize: 20)
+                      'Crie sua conta!',
+                      style: TextStyle(color: Colors.white, fontSize: 15)
                   ),
               ),
-              SizedBox(height: 30.0),
+              SizedBox(height: 20.0),
               Container(
                 width: 250,
-                height: 17,
+                height: 30,
                 child:
                 TextFormField(
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Insira um email',
+                        hintText: 'Nome',
+                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
+                        prefixIcon: PictureWidget4(),
+                        prefixText: '  ',
+                        prefixIconConstraints: BoxConstraints(
+                          minHeight: 25,
+                          minWidth: 25,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[900],
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.transparent)
+                        )
+                    ),
 
+                    validator: (val) => val.isEmpty ? 'Insira um nome válido.' : null, //verifica se o campo está vazio
+                    onChanged: (val){ //toda vez que o valor do campo mudar
+                      setState(() => nome = val); //mude o valor da variável email para o valor do campo
+                    }
+                ),
+
+              ),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
+
+              SizedBox(height: 20.0),
+              Container(
+                width: 250,
+                height: 30,
+                child:
+                TextFormField(
+                    cursorColor: Colors.white.withOpacity(0.6),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: textInputDecoration.copyWith(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        hintText: 'CPF',
+                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
+                        prefixIcon: PictureWidget4(),
+                        prefixText: '  ',
+                        prefixIconConstraints: BoxConstraints(
+                          minHeight: 25,
+                          minWidth: 25,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[900],
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.transparent)
+                        )
+                    ),
+
+                    validator: (val) => val.isEmpty ? 'Insira um CPF válido.' : null, //verifica se o campo está vazio
+                    onChanged: (val){ //toda vez que o valor do campo mudar
+                      setState(() => cpf = val); //mude o valor da variável email para o valor do campo
+                    }
+                ),
+
+              ),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
+
+              SizedBox(height: 20.0),
+              Container(
+                width: 250,
+                height: 30,
+                child:
+                TextFormField(
+                    cursorColor: Colors.white.withOpacity(0.6),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: textInputDecoration.copyWith(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        hintText: 'Usuário',
+                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
+                        prefixIcon: PictureWidget3(),
+                        prefixText: '  ',
+                        prefixIconConstraints: BoxConstraints(
+                          minHeight: 25,
+                          minWidth: 25,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[900],
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.transparent)
+                        )
+                    ),
+
+                    validator: (val) => val.isEmpty ? 'Insira um usuário válido.' : null, //verifica se o campo está vazio
+                    onChanged: (val){ //toda vez que o valor do campo mudar
+                      setState(() => email = val); //mude o valor da variável email para o valor do campo
+                    }
+                ),
+
+              ),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
+
+              SizedBox(height: 20.0),
+              Container(
+                width: 250,
+                height: 30,
+                child:
+                TextFormField(
+                    cursorColor: Colors.white.withOpacity(0.6),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: textInputDecoration.copyWith(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        hintText: 'exemplo@email.com',
                         hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
                         prefixIcon: PictureWidget(),
                         prefixText: '  ',
@@ -85,123 +193,124 @@ class _RegisterState extends State<Register>{
                           minWidth: 25,
                         ),
                         filled: true,
-                        fillColor: Colors.black,
+                        fillColor: Colors.grey[900],
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.transparent)
                         )
                     ),
 
-                    validator: (val) => val.isEmpty ? 'Insira um e-mail correto.' : null, //verifica se o campo está vazio
+                    validator: (val) => val.isEmpty ? 'Insira um e-mail.' : null, //verifica se o campo está vazio
                     onChanged: (val){ //toda vez que o valor do campo mudar
                       setState(() => email = val); //mude o valor da variável email para o valor do campo
                     }
                 ),
 
               ),
-              Image.asset('images/line.png', color: Colors.white, width: 200),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
               SizedBox(height: 20.0),
 
               Container(
                 width: 250,
-                height: 17,
+                height: 30,
                 child:
                 TextFormField(
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Insira uma Senha',
+                        hintText: 'Senha',
                         hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
-                        labelStyle: TextStyle(color: Colors.red),
                         prefixIcon: PictureWidget2(),
                         prefixText: '  ',
-
                         prefixIconConstraints: BoxConstraints(
                           minHeight: 25,
                           minWidth: 25,
                         ),
                         filled: true,
-                        fillColor: Colors.black,
+                        fillColor: Colors.grey[900],
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.transparent)
                         )
                     ),
+
                     obscureText: true,
                     validator: (val) => val.length < 6 ? 'Insira uma senha com +6 caracteres' : null, //verifica se a senha é menor que 6 caracteres
                     onChanged: (val){ //toda vez que o valor do campo mudar
                       setState(() => password = val); //mude o valor da variaǘel senha para o valor do campo
                     }
                 ),
+
               ),
-              Image.asset('images/line.png', color: Colors.white, width: 200),
+
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
               SizedBox(height: 20.0),
               Container(
                 width: 250,
-                height: 17,
+                height: 30,
                 child:
                 TextFormField(
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Confirme a Senha',
+                        hintText: 'Confirme  sua senha',
                         hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
-                        labelStyle: TextStyle(color: Colors.red),
                         prefixIcon: PictureWidget2(),
                         prefixText: '  ',
-
                         prefixIconConstraints: BoxConstraints(
                           minHeight: 25,
                           minWidth: 25,
                         ),
                         filled: true,
-                        fillColor: Colors.black,
+                        fillColor: Colors.grey[900],
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.transparent)
                         )
                     ),
+
                     obscureText: true,
                     validator: (val) => val.length < 6 ? 'Insira uma senha com +6 caracteres' : null, //verifica se a senha é menor que 6 caracteres
                     onChanged: (val){ //toda vez que o valor do campo mudar
                       setState(() => password = val); //mude o valor da variaǘel senha para o valor do campo
                     }
                 ),
+
               ),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              Image.asset('images/line.png', color: Colors.white, width: 200),
-
-              SizedBox(height: 40.0),
+              SizedBox(height: 20.0),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
+
+                  borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.lightGreen.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      offset: Offset(1, 3), // changes position of shadow
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(1, 1), // changes position of shadow
                     ),
                   ],
                 ),
                 child: RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                    padding: EdgeInsets.symmetric(horizontal: 120, vertical: 15),
+                    color: Colors.red,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
 
                     child: Text(
-                        'REGISTER',
-                        style: TextStyle(color: Colors.black)
+                        'REGISTRAR',
+                        style: TextStyle(color: Colors.white)
                     ),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
@@ -229,7 +338,7 @@ class _RegisterState extends State<Register>{
 class PictureWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return new ImageIcon (new AssetImage('images/username.jpg'),
+    return new ImageIcon (new AssetImage('images/email.png'),
     color: Colors.white);
   }
 }
@@ -240,5 +349,29 @@ class PictureWidget2 extends StatelessWidget{
   Widget build(BuildContext context){
     return new ImageIcon (new AssetImage('images/password.png'),
         color: Colors.white);
+  }
+}
+
+class PictureWidget3 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return new ImageIcon (new AssetImage('images/username.jpg'),
+        color: Colors.white);
+  }
+}
+
+class PictureWidget4 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return new ImageIcon (new AssetImage('images/dot.png'),
+        color: Colors.white);
+  }
+}
+
+class PictureWidget5 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return new ImageIcon (new AssetImage('images/back.png'),
+        color: Colors.red);
   }
 }
