@@ -29,12 +29,7 @@ class _SignInState extends State<SignIn>{
     return loading ? Loading() : Scaffold(
 
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/agile_gas_back.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        color: Colors.grey[900],
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
 
         child: Form(
@@ -42,17 +37,17 @@ class _SignInState extends State<SignIn>{
           child: Column(
             children: <Widget>[
               SizedBox(height: 100.0),
-              Image.asset('images/logo.png'),
+              Image.asset('images/logo.png', color: Colors.red),
               SizedBox(height: 130),
               Container(
                 width: 250,
-                height: 17,
+                height: 30,
                 child:
                 TextFormField(
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -65,9 +60,9 @@ class _SignInState extends State<SignIn>{
                           minWidth: 25,
                         ),
                         filled: true,
-                        fillColor: Colors.black,
+                        fillColor: Colors.grey[900],
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.transparent)
                         )
                     ),
@@ -79,19 +74,20 @@ class _SignInState extends State<SignIn>{
                 ),
 
               ),
-              Image.asset('images/line.png', color: Colors.white, width: 200),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5)),
+
 
               SizedBox(height: 20.0),
 
               Container(
                 width: 250,
-                height: 17,
+                height: 30,
                 child:
                 TextFormField(
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -106,9 +102,9 @@ class _SignInState extends State<SignIn>{
                           minWidth: 25,
                         ),
                         filled: true,
-                        fillColor: Colors.black,
+                        fillColor: Colors.grey[900],
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.transparent)
                         )
                     ),
@@ -119,29 +115,31 @@ class _SignInState extends State<SignIn>{
                     }
                 ),
               ),
-              Image.asset('images/line.png', color: Colors.white, width: 200),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5)),
+
 
               SizedBox(height: 40.0),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
+
+                  borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.lightGreen.withOpacity(0.5),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      offset: Offset(1, 3), // changes position of shadow
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(1, 1), // changes position of shadow
                     ),
                   ],
                 ),
                 child: RaisedButton(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                    color: Colors.red,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     padding: EdgeInsets.symmetric(horizontal: 120, vertical: 15),
 
                     child: Text(
                         'LOGIN',
-                        style: TextStyle(color: Colors.black)
+                        style: TextStyle(color: Colors.white)
                     ),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
@@ -149,7 +147,7 @@ class _SignInState extends State<SignIn>{
                         dynamic result = await _auth.signInWithEmailAndPassword(email, password); //se sim loga o usuário com essa senha e base
                         if (result == null) { //retorna null se não estiver cadastrado
                           setState(() {
-                            error = 'Sign in failed, credentials not registered!';
+                            error = 'Credenciais inválidas, cadastre-se!';
                             loading = false;
                           });
                         }
@@ -159,27 +157,33 @@ class _SignInState extends State<SignIn>{
               ),
 
               SizedBox(height: 30),
-              RaisedButton(
-                  color: Colors.transparent,
+              Container(
+                child: FlatButton(
+                    color: Colors.grey[900],
 
-                  child: Text(
-                      'Create your account!',
-                      style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
-                  ),
-                  onPressed: () async {
-                    widget.toggleView();
-                  }
-              ),
-              RaisedButton(
-                  color: Colors.transparent,
-                  child: Text(
-                      'Forgot you password?',
-                      style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
-                  ),
-                  onPressed: () async {
+                    child: Text(
+                        'Não tem uma conta? Crie aqui!',
+                        style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
+                    ),
+                    onPressed: () async {
+                      widget.toggleView();
+                    }
+                ),
 
-                  }
               ),
+              Container(
+                child: FlatButton(
+                    color: Colors.grey[900],
+                    child: Text(
+                        'Esqueceu sua senha?',
+                        style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
+                    ),
+                    onPressed: () async {
+
+                    }
+                ),
+              ),
+
               Text(
                 error,
                 style: TextStyle(color: Colors.red, fontSize: 14.0),
@@ -195,7 +199,7 @@ class _SignInState extends State<SignIn>{
 class PictureWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return new ImageIcon (new AssetImage('images/username.jpg'),
+    return new ImageIcon (new AssetImage('images/email.png'),
     color: Colors.white);
   }
 }
