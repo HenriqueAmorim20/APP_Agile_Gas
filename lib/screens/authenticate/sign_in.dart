@@ -28,15 +28,20 @@ class _SignInState extends State<SignIn>{
   Widget build(BuildContext context){
     return loading ? Loading() : Scaffold(
 
-      backgroundColor: Colors.black,
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/agile_gas_back.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
 
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 160.0),
+              SizedBox(height: 100.0),
               Image.asset('images/logo.png'),
               SizedBox(height: 130),
               Container(
