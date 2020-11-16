@@ -1,6 +1,7 @@
 import 'package:agile_gas_app/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/screens/authenticate/register.dart';
+//import 'package:agile_gas_app/screens/authenticate/password.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -17,7 +18,11 @@ class _AuthenticateState extends State<Authenticate>{
   @override
   Widget build(BuildContext context){
     if(showSignIn == true){
-      return SignIn(toggleView: toggleView);
+      // if(){
+        return SignIn(toggleView: toggleView);
+     // }else{
+     // return Password(toggleView: toggleView);
+     // }
     } else {
       return Register(toggleView: toggleView);
     }
