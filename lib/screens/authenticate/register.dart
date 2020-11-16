@@ -57,7 +57,7 @@ class _RegisterState extends State<Register>{
                       style: TextStyle(color: Colors.white, fontSize: 15)
                   ),
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 width: 250,
                 height: 30,
@@ -95,7 +95,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 width: 250,
                 height: 30,
@@ -133,7 +133,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 width: 250,
                 height: 30,
@@ -171,7 +171,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 width: 250,
                 height: 30,
@@ -209,7 +209,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
 
               Container(
                 width: 250,
@@ -250,7 +250,7 @@ class _RegisterState extends State<Register>{
 
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
               Container(
                 width: 250,
                 height: 30,
@@ -289,7 +289,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 0.0),
               Container(
                 decoration: BoxDecoration(
 
