@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn>{
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 100.0),
+              SizedBox(height: 40.0),
               Image.asset('images/logo.png', color: Colors.red),
               SizedBox(height: 130),
               Container(
