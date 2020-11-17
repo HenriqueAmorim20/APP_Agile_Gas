@@ -32,7 +32,7 @@ class _PasswordState extends State<Password>{
       appBar: new AppBar(
         backgroundColor: Colors.grey[900],
         leading: IconButton(
-            iconSize: 35,
+            iconSize: 75,
             icon: PictureWidget5(),
             onPressed: () async {
               Navigator.pop(context); //sinaliza para a widget que deve ser apresentada
