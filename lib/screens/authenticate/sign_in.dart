@@ -1,3 +1,5 @@
+import 'package:agile_gas_app/screens/authenticate/password.dart';
+import 'package:agile_gas_app/screens/authenticate/register.dart';
 import 'package:agile_gas_app/screens/services/auth.dart';
 import 'package:agile_gas_app/shared/constants.dart';
 import 'package:agile_gas_app/shared/loading.dart';
@@ -166,7 +168,10 @@ class _SignInState extends State<SignIn>{
                         style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
                     ),
                     onPressed: () async {
-                      widget.toggleView();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Register()),
+                      );
                     }
                 ),
 
@@ -179,7 +184,10 @@ class _SignInState extends State<SignIn>{
                         style: TextStyle(color: Colors.white,decoration: TextDecoration.underline)
                     ),
                     onPressed: () async {
-
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Password()),
+                      );
                     }
                 ),
               ),

@@ -35,7 +35,7 @@ class _RegisterState extends State<Register>{
             iconSize: 35,
             icon: PictureWidget5(),
             onPressed: () async {
-              widget.toggleView(); //sinaliza para a widget que deve ser apresentada
+              Navigator.pop(context);//sinaliza para a widget que deve ser apresentada
             }
         ),
       ),

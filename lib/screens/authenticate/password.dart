@@ -2,6 +2,7 @@ import 'package:agile_gas_app/shared/constants.dart';
 import 'package:agile_gas_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/screens/services/auth.dart';
+import 'package:agile_gas_app/screens/authenticate/sign_in.dart';
 
 class Password extends StatefulWidget{
 
@@ -35,7 +36,7 @@ class _PasswordState extends State<Password>{
             iconSize: 35,
             icon: PictureWidget5(),
             onPressed: () async {
-              widget.toggleView(); //sinaliza para a widget que deve ser apresentada
+              Navigator.pop(context); //sinaliza para a widget que deve ser apresentada
             }
         ),
       ),
