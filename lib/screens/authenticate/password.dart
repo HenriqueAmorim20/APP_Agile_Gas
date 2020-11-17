@@ -20,19 +20,18 @@ class _PasswordState extends State<Password>{
   bool loading = false;
 
   //text field state
-  String email = '';
-  String password = '';
+  String emailrec = '';
   String error = '';
   String nome = '';
-  String cpf = '';
-  String username = '';
+  String cpfrec = '';
+
 
   @override
   Widget build(BuildContext context){
     return loading ? Loading() : Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.grey[900],
-        title: IconButton(
+        leading: IconButton(
             iconSize: 35,
             icon: PictureWidget5(),
             onPressed: () async {
@@ -49,11 +48,11 @@ class _PasswordState extends State<Password>{
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 40),
+              SizedBox(height: 20),
               Image.asset('images/logo.png', color: Colors.red),
               SizedBox(height: 80),
               Container(
-                width: 250,
+                width: 300,
                 height: 30,
                 child:
                 TextFormField(
@@ -64,7 +63,40 @@ class _PasswordState extends State<Password>{
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Insira seu e-mail',
+                        hintText: 'Insira seu nome',
+                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
+                        prefixIcon: PictureWidget3(),
+                        prefixText: '  ',
+                        prefixIconConstraints: BoxConstraints(
+                          minHeight: 25,
+                          minWidth: 25,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey[900],
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.transparent)
+                        )
+                    ),
+                ),
+
+              ),
+              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
+
+              SizedBox(height: 30.0),
+              Container(
+                width: 300,
+                height: 30,
+                child:
+                TextFormField(
+                    cursorColor: Colors.white.withOpacity(0.6),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: textInputDecoration.copyWith(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        hintText: 'Insira seu e-mail cadastrado',
                         hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
                         prefixIcon: PictureWidget(),
                         prefixText: '  ',
@@ -82,16 +114,17 @@ class _PasswordState extends State<Password>{
 
                     validator: (val) => val.isEmpty ? 'Insira um e-mail.' : null, //verifica se o campo está vazio
                     onChanged: (val){ //toda vez que o valor do campo mudar
-                      setState(() => email = val); //mude o valor da variável email para o valor do campo
+                      setState(() => emailrec = val); //mude o valor da variável email para o valor do campo
                     }
                 ),
 
               ),
+
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
               SizedBox(height: 30.0),
               Container(
-                width: 250,
+                width: 300,
                 height: 30,
                 child:
                 TextFormField(
@@ -102,9 +135,9 @@ class _PasswordState extends State<Password>{
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Insira uma nova Senha',
+                        hintText: 'Insira seu CPF cadastrado',
                         hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
-                        prefixIcon: PictureWidget2(),
+                        prefixIcon: PictureWidget4(),
                         prefixText: '  ',
                         prefixIconConstraints: BoxConstraints(
                           minHeight: 25,
@@ -118,50 +151,9 @@ class _PasswordState extends State<Password>{
                         )
                     ),
 
-                    obscureText: true,
-                    validator: (val) => val.length < 6 ? 'Insira uma senha com +6 caracteres' : null, //verifica se a senha é menor que 6 caracteres
+                    validator: (val) => val.isEmpty ? 'Insira um CPF.' : null, //verifica se o campo está vazio
                     onChanged: (val){ //toda vez que o valor do campo mudar
-                      setState(() => password = val); //mude o valor da variaǘel senha para o valor do campo
-                    }
-                ),
-
-              ),
-
-              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
-
-              SizedBox(height: 30.0),
-              Container(
-                width: 250,
-                height: 30,
-                child:
-                TextFormField(
-                    cursorColor: Colors.white.withOpacity(0.6),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    decoration: textInputDecoration.copyWith(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Confirme  sua senha',
-                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
-                        prefixIcon: PictureWidget2(),
-                        prefixText: '  ',
-                        prefixIconConstraints: BoxConstraints(
-                          minHeight: 25,
-                          minWidth: 25,
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[900],
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.transparent)
-                        )
-                    ),
-
-                    obscureText: true,
-                    validator: (val) => val.length < 6 ? 'Insira uma senha com +6 caracteres' : null, //verifica se a senha é menor que 6 caracteres
-                    onChanged: (val){ //toda vez que o valor do campo mudar
-                      setState(() => password = val); //mude o valor da variaǘel senha para o valor do campo
+                      setState(() => cpfrec = val); //mude o valor da variável email para o valor do campo
                     }
                 ),
 
@@ -185,23 +177,14 @@ class _PasswordState extends State<Password>{
                 child: RaisedButton(
                     color: Colors.red,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
 
                     child: Text(
-                        'NOVA SENHA',
+                        'RECUPERAR SENHA',
                         style: TextStyle(color: Colors.white)
                     ),
                     onPressed: () async {
-                      if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
-                        setState(() => loading = true);
-                        dynamic result = await _auth.registerWithEmailAndPassword(email, password); //se sim loga o usuário com essa senha e base
-                        if(result == null){ //retorna null se não tiver conseguido cadastrar
-                          setState(() {
-                            error = 'Registration failed!';
-                            loading = false;
-                          });
-                        }
-                      }
+
                     }
 
                 ),

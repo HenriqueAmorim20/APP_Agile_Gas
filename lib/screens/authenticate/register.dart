@@ -31,7 +31,7 @@ class _RegisterState extends State<Register>{
     return loading ? Loading() : Scaffold(
       appBar: new AppBar(
         backgroundColor: Colors.grey[900],
-        title: IconButton(
+        leading: IconButton(
             iconSize: 35,
             icon: PictureWidget5(),
             onPressed: () async {
@@ -47,9 +47,9 @@ class _RegisterState extends State<Register>{
           key: _formKey,
           child: Column(
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 0 ),
               Image.asset('images/logo.png', color: Colors.red),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               FlatButton(
                   color: Colors.transparent,
                   child: Text(
@@ -57,7 +57,7 @@ class _RegisterState extends State<Register>{
                       style: TextStyle(color: Colors.white, fontSize: 15)
                   ),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
               Container(
                 width: 250,
                 height: 30,
@@ -72,7 +72,7 @@ class _RegisterState extends State<Register>{
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
                         hintText: 'Nome',
                         hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
-                        prefixIcon: PictureWidget4(),
+                        prefixIcon: PictureWidget3(),
                         prefixText: '  ',
                         prefixIconConstraints: BoxConstraints(
                           minHeight: 25,
@@ -95,7 +95,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
               Container(
                 width: 250,
                 height: 30,
@@ -132,46 +132,7 @@ class _RegisterState extends State<Register>{
 
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
-
-              SizedBox(height: 10.0),
-              Container(
-                width: 250,
-                height: 30,
-                child:
-                TextFormField(
-                    cursorColor: Colors.white.withOpacity(0.6),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    decoration: textInputDecoration.copyWith(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Usuário',
-                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.white.withOpacity(0.6)),
-                        prefixIcon: PictureWidget3(),
-                        prefixText: '  ',
-                        prefixIconConstraints: BoxConstraints(
-                          minHeight: 25,
-                          minWidth: 25,
-                        ),
-                        filled: true,
-                        fillColor: Colors.grey[900],
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.transparent)
-                        )
-                    ),
-
-                    validator: (val) => val.isEmpty ? 'Insira um usuário válido.' : null, //verifica se o campo está vazio
-                    onChanged: (val){ //toda vez que o valor do campo mudar
-                      setState(() => email = val); //mude o valor da variável email para o valor do campo
-                    }
-                ),
-
-              ),
-              Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
-
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
               Container(
                 width: 250,
                 height: 30,
@@ -209,7 +170,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
 
               Container(
                 width: 250,
@@ -250,7 +211,7 @@ class _RegisterState extends State<Register>{
 
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
               Container(
                 width: 250,
                 height: 30,
@@ -289,7 +250,7 @@ class _RegisterState extends State<Register>{
               ),
               Image.asset('images/line.png', color: Colors.red.withOpacity(0.5), width: 200),
 
-              SizedBox(height: 0.0),
+              SizedBox(height: 15.0),
               Container(
                 decoration: BoxDecoration(
 
