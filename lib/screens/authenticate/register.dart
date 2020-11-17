@@ -24,7 +24,6 @@ class _RegisterState extends State<Register>{
   String error = '';
   String nome = '';
   String cpf = '';
-  String username = '';
 
   @override
   Widget build(BuildContext context){
@@ -66,7 +65,7 @@ class _RegisterState extends State<Register>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -104,7 +103,7 @@ class _RegisterState extends State<Register>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -141,7 +140,7 @@ class _RegisterState extends State<Register>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -180,7 +179,7 @@ class _RegisterState extends State<Register>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -220,7 +219,7 @@ class _RegisterState extends State<Register>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),

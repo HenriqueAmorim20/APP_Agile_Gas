@@ -49,7 +49,7 @@ class _SignInState extends State<SignIn>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -89,7 +89,7 @@ class _SignInState extends State<SignIn>{
                     cursorColor: Colors.white.withOpacity(0.6),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     decoration: textInputDecoration.copyWith(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
