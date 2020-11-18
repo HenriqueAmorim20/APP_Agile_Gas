@@ -8,26 +8,67 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey [900],
       appBar: new AppBar(
-        title: new Text('Agile Gas', style: TextStyle(
-          color: Colors.lightGreenAccent[400],
-          fontSize: 30,
-        )),
-        backgroundColor: Colors.black54,
-        elevation: 0.0,
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Logout', style: TextStyle(
-              color: Colors.lightGreenAccent[400],
-              fontSize: 30,
-            )),
-            onPressed: () async {
-              await _auth.signOut();
-            },
-          )
-        ],
+        backgroundColor: Colors.grey[900],
+        title: Image.asset('images/logo.png', color: Colors.red, height: 50, width: 150,),
+      ),
+      body: Center(child: Text('Teste')),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+                child: Text('Cabeçalho'),
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                ),
+            ),
+            ListTile(
+              title: Text('Veículos'),
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+                title: Text('Acompanhar Gastos'),
+                onTap: () {
+                  Navigator.pop(context);
+                }
+            ),
+            ListTile(
+                title: Text('Cadastrar Posto'),
+                onTap: () {
+                  Navigator.pop(context);
+                }
+            ),
+            ListTile(
+                title: Text('Registrar Abastecimento'),
+                onTap: () {
+                  Navigator.pop(context);
+                }
+            ),
+            ListTile(
+                title: Text('Configurações'),
+                onTap: () {
+                  Navigator.pop(context);
+                }
+            ),
+            ListTile(
+                title: Text('Deixe sua Sugestão'),
+                onTap: () {
+                  Navigator.pop(context);
+                }
+            ),
+            ListTile(
+                title: Text('Sair'),
+                onTap: () {
+                  Navigator.pop(context);
+                   _auth.signOut();
+                }
+            ),
+          ],
+        ),
       ),
     );
   }

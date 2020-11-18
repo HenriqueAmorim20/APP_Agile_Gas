@@ -69,7 +69,7 @@ class _SignInState extends State<SignIn>{
                         )
                     ),
 
-                    validator: (val) => val.isEmpty ? 'Insira um e-mail.' : null, //verifica se o campo está vazio
+                    validator: (val) => val.isEmpty ? 'E-mail inválido.' : null, //verifica se o campo está vazio
                     onChanged: (val){ //toda vez que o valor do campo mudar
                       setState(() => email = val); //mude o valor da variável email para o valor do campo
                     }
@@ -111,7 +111,7 @@ class _SignInState extends State<SignIn>{
                         )
                     ),
                     obscureText: true,
-                    validator: (val) => val.length < 6 ? 'Senha incorreta!' : null, //verifica se a senha é menor que 6 caracteres
+                    validator: (val) => val.length < 6 ? 'Senha inválida!' : null, //verifica se a senha é menor que 6 caracteres
                     onChanged: (val){ //toda vez que o valor do campo mudar
                       setState(() => password = val); //mude o valor da variaǘel senha para o valor do campo
                     }
@@ -149,7 +149,7 @@ class _SignInState extends State<SignIn>{
                         dynamic result = await _auth.signInWithEmailAndPassword(email, password); //se sim loga o usuário com essa senha e base
                         if (result == null) { //retorna null se não estiver cadastrado
                           setState(() {
-                            error = 'Credenciais inválidas, cadastre-se!';
+                            error = 'E-mail/Senha incorretos!';
                             loading = false;
                           });
                         }

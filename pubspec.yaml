@@ -44,6 +44,8 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+  uses-material-design: true
+
   assets:
     - images/logo.png
     - images/username.jpg
@@ -52,6 +54,8 @@ flutter:
     - images/email.png
     - images/back.png
     - images/dot.png
+
+
 
 
   # To add assets to your application, add an assets section, like this:
