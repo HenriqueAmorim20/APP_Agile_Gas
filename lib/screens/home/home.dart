@@ -13,9 +13,57 @@ class Home extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: new AppBar(
         backgroundColor: Colors.grey[900],
-        title: Image.asset('images/logo.png', color: Colors.red, height: 50, width: 150,),
+        title: Image.asset('images/logo.png', color: Colors.red, height: 40, width: 130,),
       ),
-      body: Center(child: Text('Teste')),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: new EdgeInsets.symmetric(vertical:10, horizontal: 10),
+              height:300,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Colors.grey[900],
+                  borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(25),
+                      topRight: const Radius.circular(25),
+                      bottomLeft: const Radius.circular(25),
+                      bottomRight: const Radius.circular(25)
+                  )
+              ),
+            ),
+            Container(
+              margin: new EdgeInsets.symmetric( horizontal: 10),
+              height:300,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Colors.grey[900],
+                  borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(25),
+                      topRight: const Radius.circular(25),
+                      bottomLeft: const Radius.circular(25),
+                      bottomRight: const Radius.circular(25)
+                  )
+              ),
+            ),
+            Container(
+              margin: new EdgeInsets.symmetric(vertical:10, horizontal: 10),
+              height:300,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Colors.grey[900],
+                  borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(25),
+                      topRight: const Radius.circular(25),
+                      bottomLeft: const Radius.circular(25),
+                      bottomRight: const Radius.circular(25)
+                  )
+              ),
+            ),
+          ]
+        ),
+
+      ),
       drawer: ClipRRect(
         borderRadius: BorderRadius.only(
              bottomRight: Radius.circular(45)),
