@@ -1,5 +1,11 @@
 import 'package:agile_gas_app/screens/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:agile_gas_app/screens/sidemenu/veiculos.dart';
+import 'package:agile_gas_app/screens/sidemenu/gastos.dart';
+import 'package:agile_gas_app/screens/sidemenu/cadastrar_posto.dart';
+import 'package:agile_gas_app/screens/sidemenu/registrar_abastecimento.dart';
+import 'package:agile_gas_app/screens/sidemenu/sugestoes.dart';
+import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
 
 class Home extends StatelessWidget {
 
@@ -12,8 +18,8 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: new AppBar(
-        backgroundColor: Colors.grey[900],
-        title: Image.asset('images/logo.png', color: Colors.red, height: 40, width: 130,),
+        backgroundColor: Colors.black,
+        title: Image.asset('images/logo.png', color: Colors.red, height: 30, width: 100,),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -84,8 +90,10 @@ class Home extends StatelessWidget {
                               child: Text('Veículos', style: TextStyle(color: Colors.white, fontSize:15 )),
                               alignment: Alignment(-1.35,0),
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => Veiculos()),
+                              );
                             }
                         ),
                         ListTile(
@@ -94,8 +102,10 @@ class Home extends StatelessWidget {
                               child: Text('Acompanhar gastos', style: TextStyle(color: Colors.white, fontSize:15 )),
                               alignment: Alignment(-1.8,0),
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Gastos()),
+                              );
                             }
                         ),
                         Divider(color: Colors.white.withOpacity(0.5),),
@@ -106,8 +116,10 @@ class Home extends StatelessWidget {
                               child: Text('Cadastrar posto', style: TextStyle(color: Colors.white, fontSize:15 )),
                               alignment: Alignment(-1.5,0),
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Cadastrar_posto()),
+                              );
                             }
                         ),
                         ListTile(
@@ -116,8 +128,10 @@ class Home extends StatelessWidget {
                               child: Text('Registrar abastecimento', style: TextStyle(color: Colors.white, fontSize:15 )),
                               alignment: Alignment(-2.1,0),
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Registrar_abastecimento()),
+                              );
                             }
                         ),
                         Divider(color: Colors.white.withOpacity(0.5),),
@@ -128,8 +142,10 @@ class Home extends StatelessWidget {
                               child: Text('Deixe sua sugestão!', style: TextStyle(color: Colors.white, fontSize:15 )),
                               alignment: Alignment(-1.7,0),
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Sugestoes()),
+                              );
                             }
                         ),
                         ListTile(
@@ -138,8 +154,10 @@ class Home extends StatelessWidget {
                               child: Text('Configurações', style: TextStyle(color: Colors.white, fontSize:15 )),
                               alignment: Alignment(-1.5,0),
                             ),
-                            onTap: () {
-                              Navigator.pop(context);
+                            onTap: () async {
+                              Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Configuracoes()),
+                              );
                             }
                         ),
                         Divider(color: Colors.white.withOpacity(0.5),),
