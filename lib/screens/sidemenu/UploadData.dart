@@ -1,7 +1,7 @@
-import 'package:agile_gas_app/screens/services/auth.dart';
+import 'package:agile_gas_app/screens/home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:agile_gas_app/shared/loading.dart';
 
 
 
@@ -16,107 +16,156 @@ class UploadData extends StatefulWidget {
 class _UploadDataState extends State<UploadData> {
   var formKey = GlobalKey<FormState>();
 
-  String name;
+  String sugestion = '';
+  bool loading = false;
 
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xff000725),
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text("Sugestões",style: TextStyle(color: Color(0xffffffff)),),
+    return loading ? Loading() : Scaffold(
+      backgroundColor: Colors.black,
+      appBar: new AppBar(
+        backgroundColor: Colors.black,
+        title: Text('Sugestões'),
+        leading: IconButton(
+            iconSize: 75,
+            icon: PictureWidget5(),
+            onPressed: () async {
+              Navigator.pop(context);
+            }
+        ),
       ),
-      body: Form(
+      body:
+      Container(
+        margin: new EdgeInsets.symmetric(vertical:25, horizontal: 20),
+        height:400,
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(25),
+                topRight: const Radius.circular(25),
+                bottomLeft: const Radius.circular(25),
+                bottomRight: const Radius.circular(25)
+            )
+        ),
+        child:Form(
         key: formKey,
-    child:  Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start ,
-          children: <Widget> [
-            Padding(padding: EdgeInsets.only(top: 15)),
+        child:  Center(
+
+          child: Column(
+
+            mainAxisAlignment: MainAxisAlignment.start ,
+            children: <Widget> [
+              SizedBox(height: 45),
+              Padding(padding: EdgeInsets.only(top: 15)),
+              Row(
+                children: <Widget>[
+                  SizedBox(width: 0),
+                  Expanded(
+                    flex: 1,
+                    child: Theme(
+                      data: ThemeData(
+                        cursorColor: Colors.white,
+                        hintColor: Colors.white,
+                      ),
+
+                      child: TextFormField(
+                          maxLines: 5,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 50, horizontal:10),
+                            labelText: "Digite aqui sua sugestão!",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(color: Colors.red,width: 1)
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(color: Colors.red,width: 1)
+                            ),
+
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(color: Colors.red,width: 1)
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(color: Colors.red,width: 1)
+                            ),
+
+                          ),
+                          validator: (val) => val.isEmpty? 'Sem sugestão!' : null,
+                          onChanged: (val) {
+                            setState(() =>
+                            sugestion = val);
+                          }
+                      ),
+                    ),
 
 
-
-
-    Row(
-
-
-      children: <Widget>[
-        SizedBox(width: 5,),
-        Expanded(
-            flex: 1,
-            child: Theme(
-              data: ThemeData(
-                hintColor: Colors.red,
+                  ),
+                  SizedBox(width: 0,),
+                ],
               ),
 
-              child: TextFormField(
+              SizedBox(height: 50,),
+              RaisedButton(
+                  color: Colors.red,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
 
-
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: "Digite sua sugestão",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(color: Colors.red,width: 1)
+                  child: Text(
+                      'ENVIAR SUGESTÃO',
+                      style: TextStyle(color: Colors.white)
                   ),
+                  onPressed: () async {
+                    addSugestion();
+                    showAlertDialog(context);
+                  }
 
-
-
-                  disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red,width: 1)
-                  ),
-
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red,width: 1)
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(color: Colors.red,width: 1)
-                  ),
-
-                ),
-    validator: (val) => val.length == 0  ? 'Sem sugestão!' : null, //verifica se a senha é menor que 6 caracteres
-    onChanged: (val) { //toda vez que o valor do campo mudar
-      setState(() =>
-      name = val); //mude o valor da variaǘel senha para o valor do campo
-    }
               ),
-            ),
-
+            ],
+          ),
 
         ),
-        SizedBox(width: 5,),
-
-
-      ],
-    ),
-
-    SizedBox(height: 10,),
-        RaisedButton(
-          child: const Text('Enviar'),
-          color: Colors.red,
-          elevation: 4.0,
-          splashColor: Colors.yellow,
-          onPressed: () {
-             addSugestion();
-          },
-        ),
-
-          ],
-        ),
-
       ),
       ),
+
     );
 
   }
+  showAlertDialog(BuildContext context)
+  {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) =>Home()),
+        );
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: Text(""),
+      content: Text("Sugestão enviada, obrigado!"),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
   addSugestion(){
-    Map<String,dynamic> demoData = {"Sugestão": name,
+    Map<String,dynamic> demoData = {"Sugestão": sugestion,
 
     };
     CollectionReference collectionReference = Firestore.instance.collection('sugestion');
@@ -129,3 +178,10 @@ class _UploadDataState extends State<UploadData> {
 
 
 
+class PictureWidget5 extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return new ImageIcon (new AssetImage('images/back.png'),
+        color: Colors.red);
+  }
+}
