@@ -144,7 +144,7 @@ class Home extends StatelessWidget {
                             ),
                             onTap: () async {
                               Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Sugestoes()),
+                               MaterialPageRoute(builder: (context) => UploadData()),
                               );
                             }
                         ),
