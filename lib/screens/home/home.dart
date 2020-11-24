@@ -4,7 +4,7 @@ import 'package:agile_gas_app/screens/sidemenu/veiculos.dart';
 import 'package:agile_gas_app/screens/sidemenu/gastos.dart';
 import 'package:agile_gas_app/screens/sidemenu/cadastrar_posto.dart';
 import 'package:agile_gas_app/screens/sidemenu/registrar_abastecimento.dart';
-import 'package:agile_gas_app/screens/sidemenu/sugestoes.dart';
+import 'package:agile_gas_app/screens/sidemenu/UploadData.dart';
 import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
 
 class Home extends StatelessWidget {
