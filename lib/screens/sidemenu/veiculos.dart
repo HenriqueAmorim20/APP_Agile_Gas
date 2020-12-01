@@ -2,6 +2,7 @@ import 'package:agile_gas_app/shared/constants.dart';
 import 'package:agile_gas_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/screens/services/auth.dart';
+import 'package:agile_gas_app/screens/home/car_home.dart';
 
 class Veiculos extends StatefulWidget{
 
@@ -33,9 +34,7 @@ class _VeiculosState extends State<Veiculos>{
             }
         ),
       ),
-      body: Container(
-
-      ),
+      body: CarHome(),
     );
   }
 }
