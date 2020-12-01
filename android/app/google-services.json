@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "768598079395",
+    "firebase_url": "https://agilegas-88f6c.firebaseio.com",
+    "project_id": "agilegas-88f6c",
+    "storage_bucket": "agilegas-88f6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768598079395:android:9511c3a95eab0fd02dcc16",
+        "android_client_info": {
+          "package_name": "com.gracerfree.agile_gas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768598079395-cc344v4uukk28c1g0a0hvp397bltni6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtpzvQc3ACOjJ9zjjxJJgRcqIFDWzq2WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768598079395-cc344v4uukk28c1g0a0hvp397bltni6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
