@@ -15,7 +15,7 @@ class CarHome extends StatelessWidget {
     return StreamProvider<List<Car>>.value( //retorna a lista de carros no firestore presente em cars_list.dart
       value: CarsDataBaseService().cars, //stream de user_database.dart
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey[900],
         body: CarsList(),
       ),
     );
