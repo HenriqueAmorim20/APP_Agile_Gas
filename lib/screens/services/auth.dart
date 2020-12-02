@@ -2,6 +2,7 @@ import 'package:agile_gas_app/models/agilegasuser.dart';
 import 'package:agile_gas_app/screens/services/car_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:agile_gas_app/screens/services/user_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //aqui serão criados os métodos que irão
 class AuthService { // interagir com as formas de autenticação do firebase
@@ -39,12 +40,20 @@ class AuthService { // interagir com as formas de autenticação do firebase
     try{
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User user = result.user; //FirebaseUser deprecated
+      FirebaseFirestore.instance.collection('users').doc(user.uid).update({"email": email});
       return _userFromFirebaseUser(user);
     }catch(e){
       print(e.toString());
       return null;
     }
   }
+
+  Future changeEmail(String newEmail, String oldEmail, String password) async {
+    UserCredential result = await _auth.signInWithEmailAndPassword(email: oldEmail, password: password);
+    User user = result.user;
+    user.updateEmail(newEmail);
+  }
+
   //register email/password
   Future registerWithEmailAndPassword(String email, String password, String name, String cpf) async{
     try{
