@@ -1,26 +1,33 @@
-import 'package:agile_gas_app/screens/map/add.posto.dart';
 import 'package:agile_gas_app/screens/map/map.page.dart';
 import 'package:agile_gas_app/screens/services/auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/screens/sidemenu/veiculos.dart';
 import 'package:agile_gas_app/screens/sidemenu/gastos.dart';
 import 'package:agile_gas_app/screens/sidemenu/cadastrar_posto.dart';
-import 'package:agile_gas_app/screens/sidemenu/registrar_abastecimento.dart';
 import 'package:agile_gas_app/screens/sidemenu/UploadData.dart';
 import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
-import 'package:agile_gas_app/screens/home/car_home.dart';
+import 'package:agile_gas_app/shared/constants.dart';
 
-import 'package:agile_gas_app/screens/services/auth.dart';
-import 'package:flutter/material.dart';
-import 'package:agile_gas_app/screens/services/car_database.dart';
-import 'package:provider/provider.dart';
-import 'package:agile_gas_app/screens/home/cars_list.dart';
-import 'package:agile_gas_app/models/car.dart';
+class Home extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _HomeState();
+}
 
-class Home extends StatelessWidget {
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
 
   String nome = 'Henrique';
+
+  List<String> _combustivel = ['Gasolina', 'Etanol', 'Diesel'];
+  String tipo_combustivel;
+
+  List<String> _veiculo = ['Camaro', 'Celta', 'Argo'];
+  String tipo_veiculo;
+
+  String valor_litro = '';
+  String total = '';
+  bool checkedValue = true;
 
   @override
   Widget build(BuildContext context) {
@@ -35,50 +42,176 @@ class Home extends StatelessWidget {
           width: 100,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-              margin: new EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              height: 300,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                  color: Colors.grey[900],
-                  borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(25),
-                      topRight: const Radius.circular(25),
-                      bottomLeft: const Radius.circular(25),
-                      bottomRight: const Radius.circular(25))),
-              child: InkWell(
-                onTap: () {
-                  return MapPage();
-                }, // Handle your callback
-                child: MapPage(),
-              )),
-          Container(
-            margin: new EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            height: 300,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(25),
-                    topRight: const Radius.circular(25),
-                    bottomLeft: const Radius.circular(25),
-                    bottomRight: const Radius.circular(25))),
-          ),
-          Container(
-            margin: new EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            height: 300,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(25),
-                    topRight: const Radius.circular(25),
-                    bottomLeft: const Radius.circular(25),
-                    bottomRight: const Radius.circular(25))),
-          ),
-        ]),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            ),
+        child: new Stack(
+          children: [
+            MapPage(),
+            Container(
+              margin: EdgeInsets.symmetric(vertical:50),
+              child:Column(
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                            child: RawMaterialButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                        backgroundColor: Colors.grey[200],
+                                        content: Stack(
+                                          overflow: Overflow.visible,
+                                          children: <Widget>[
+                                            Form(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+
+                                                children: <Widget>[
+                                                  Padding(
+                                                      padding: EdgeInsets.all(8.0),
+                                                      child: Text("Registre um abastecimento!",
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Colors.black,
+                                                        ),
+
+                                                      )
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(8.0),
+                                                    child: TextFormField(
+                                                        cursorColor: Colors.black.withOpacity(0.6),
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                        ),
+                                                        decoration: textInputDecoration.copyWith(
+                                                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                                            hintText: 'Preço Total: ex.R\$249,50',
+                                                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                                                        ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(8.0),
+                                                    child: TextFormField(
+                                                      cursorColor: Colors.black.withOpacity(0.6),
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      decoration: textInputDecoration.copyWith(
+                                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                                        hintText: 'Preço Litro: ex.R\$4,52',
+                                                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                                                      ),
+                                                    ),
+                                                  ),
+                                                   Container(
+                                                     child: Combustivel(),
+                                                   ),
+                                                  Container(
+                                                    //PARTE PARA IMPLEMENTAR A LISTA DE VEÍCULOS
+                                                    child: Veiculo(),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        alignment: Alignment.bottomLeft,
+                                                        margin: EdgeInsets.symmetric(horizontal: 17),
+                                                        child:RaisedButton(
+                                                          color: Colors.red,
+                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                                          child: Text("CANCELAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                          onPressed: () {
+                                                            Navigator.pop(context);
+                                                          },
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        alignment: Alignment.bottomRight,
+                                                        margin: EdgeInsets.symmetric(horizontal: 0),
+                                                        child: RaisedButton(
+                                                            color: Colors.red,
+                                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                                            child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                            onPressed: () async {
+                                                              //sinaliza para a widget que deve ser apresentada
+                                                            }
+                                                        ),
+                                                      ),
+
+                                                    ],
+                                                  ),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              elevation: 2.0,
+                              fillColor: Colors.black,
+                              child: Icon(
+                                Icons.local_gas_station,
+                                color: Colors.red,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
+                            )
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.symmetric(vertical:20),
+                  ),
+                  Container(
+                    child: Row(
+                      children: [
+                        Container(
+                            child: RawMaterialButton(
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Cadastrar_posto()),
+                                );
+                              },
+                              elevation: 2.0,
+                              fillColor: Colors.black,
+                              child: Icon(
+                                Icons.water_damage,
+                                color: Colors.red,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
+
+                            )
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.symmetric(vertical:20),
+                  ),
+
+                ],
+              ),
+            ),
+          ]),
       ),
       drawer: ClipRRect(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(45)),
@@ -122,41 +255,7 @@ class Home extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Gastos()),
                           );
                         }),
-                    Divider(
-                      color: Colors.white.withOpacity(0.5),
-                    ),
-                    ListTile(
-                        leading: Icon(Icons.water_damage, color: Colors.white),
-                        title: Align(
-                          child: Text('Cadastrar posto',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15)),
-                          alignment: Alignment(-1.5, 0),
-                        ),
-                        onTap: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Cadastrar_posto()),
-                          );
-                        }),
-                    ListTile(
-                        leading:
-                            Icon(Icons.local_gas_station, color: Colors.white),
-                        title: Align(
-                          child: Text('Registrar abastecimento',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15)),
-                          alignment: Alignment(-2.1, 0),
-                        ),
-                        onTap: () async {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Registrar_abastecimento()),
-                          );
-                        }),
+
                     Divider(
                       color: Colors.white.withOpacity(0.5),
                     ),
@@ -219,6 +318,50 @@ class Home extends StatelessWidget {
     );
   }
 
+  Widget Combustivel(){
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return  DropdownButton(
+            hint: Text('Combustível'),
+            value: tipo_combustivel,
+            onChanged: (newValue) {
+              setState(() {
+                tipo_combustivel = newValue;
+              });
+            },
+            items: _combustivel.map((combus) {
+              return DropdownMenuItem(
+                child: new Text(combus),
+                value: combus,
+              );
+            }).toList(),
+          );
+        });
+
+  }
+
+  Widget Veiculo(){
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return  DropdownButton(
+            hint: Text('Veículo'),
+            value: tipo_veiculo,
+            onChanged: (newValue) {
+              setState(() {
+                tipo_veiculo = newValue;
+              });
+            },
+            items: _veiculo.map((vei) {
+              return DropdownMenuItem(
+                child: new Text(vei),
+                value: vei,
+              );
+            }).toList(),
+          );
+        });
+
+  }
+
   Widget _createHeader() {
     return DrawerHeader(
         margin: EdgeInsets.zero,
@@ -238,6 +381,7 @@ class Home extends StatelessWidget {
         ]));
   }
 }
+
 
 class PictureWidget4 extends StatelessWidget {
   @override
