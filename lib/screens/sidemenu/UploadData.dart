@@ -50,6 +50,7 @@ class _UploadDataState extends State<UploadData> {
                 bottomRight: const Radius.circular(25)
             )
         ),
+        child: SingleChildScrollView(
         child:Form(
         key: formKey,
         child:  Center(
@@ -131,6 +132,7 @@ class _UploadDataState extends State<UploadData> {
           ),
 
         ),
+      ),
       ),
       ),
 
