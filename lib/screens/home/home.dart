@@ -17,7 +17,7 @@ class Home extends StatefulWidget{
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
 
-  String nome = 'Henrique';
+  String nome = 'Bem-Vindo(a)';
 
   List<String> _combustivel = ['Gasolina', 'Etanol', 'Diesel'];
   String tipo_combustivel;
