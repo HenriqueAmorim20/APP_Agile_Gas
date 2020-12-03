@@ -12,16 +12,14 @@ class CarsList extends StatefulWidget {
 class _CarsListState extends State<CarsList> {
   @override
   Widget build(BuildContext context) {
-
     final cars = Provider.of<List<Car>>(context);
     final user = Provider.of<AgileGasUser>(context);
     final userCars = cars.where((c) => c.ownedByUid == user.uid).toList();
 
     return ListView.builder(
-      itemCount: userCars.length,
-      itemBuilder: (context, index) {
-        return CarTile(car: userCars[index]);
-      }
-    );
+        itemCount: userCars.length,
+        itemBuilder: (context, index) {
+          return CarTile(car: userCars[index]);
+        });
   }
 }
