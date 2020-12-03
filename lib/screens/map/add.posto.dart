@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:agile_gas_app/shared/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,22 +29,135 @@ class _AddPostoState extends State<AddPosto> {
   GoogleMapController googleMapController;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   Position position;
-  String addressLocation;
+  String nomePosto;
   String country;
   String postalCode;
   Geoflutterfire geo = Geoflutterfire();
   bool loading;
 
+  String prGasol;
+  String prEtan;
+  String prDie;
+  String dataCad;
+
   TextEditingController address = new TextEditingController();
 
   Future<String> createAlertDialog(BuildContext context) {
     return showDialog(
+
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Insira o nome do posto."),
-            content: TextField(
-              controller: address,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            backgroundColor: Colors.grey[200],
+            title: Text("Cadastrar posto."),
+            content: SingleChildScrollView(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                          cursorColor: Colors.black.withOpacity(0.6),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: textInputDecoration.copyWith(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            hintText: 'Nome do posto: ex. Shell',
+                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                          ),
+                          validator: (val) => val.isEmpty ? 'Nome inválido.' : null, //verifica se o campo está vazio
+                          onChanged: (val){ //toda vez que o valor do campo mudar
+                            setState(() => nomePosto = val); //mude o valor da variável email para o valor do campo
+                          }
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                          cursorColor: Colors.black.withOpacity(0.6),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: textInputDecoration.copyWith(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            hintText: 'Preço Gasolina R\$: 4,52',
+                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                          ),
+                          validator: (val) => val.isEmpty ? 'Preço inválido.' : null, //verifica se o campo está vazio
+                          onChanged: (val){ //toda vez que o valor do campo mudar
+                            setState(() => prGasol = val); //mude o valor da variável email para o valor do campo
+                          }
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                          cursorColor: Colors.black.withOpacity(0.6),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: textInputDecoration.copyWith(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            hintText: 'Preço Etanol R\$: 3,52',
+                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                          ),
+                          validator: (val) => val.isEmpty ? 'Preço inválido.' : null, //verifica se o campo está vazio
+                          onChanged: (val){ //toda vez que o valor do campo mudar
+                            setState(() => prEtan = val); //mude o valor da variável email para o valor do campo
+                          }
+                      ),
+
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                          cursorColor: Colors.black.withOpacity(0.6),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: textInputDecoration.copyWith(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            hintText: 'Preço Diesel R\$: 3,20',
+                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                          ),
+                          validator: (val) => val.isEmpty ? 'Preço inválido.' : null, //verifica se o campo está vazio
+                          onChanged: (val){ //toda vez que o valor do campo mudar
+                            setState(() => prDie = val); //mude o valor da variável email para o valor do campo
+                          }
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: TextFormField(
+                          cursorColor: Colors.black.withOpacity(0.6),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: textInputDecoration.copyWith(
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            hintText: 'Data: ex 02/12/2020',
+                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+
+                          ),
+                          validator: (val) => val.isEmpty ? 'Data inválida.' : null, //verifica se o campo está vazio
+                          onChanged: (val){ //toda vez que o valor do campo mudar
+                            setState(() => dataCad = val); //mude o valor da variável email para o valor do campo
+                          }
+                      ),
+                    ),
+                  ]
+              ),
             ),
             actions: <Widget>[
               MaterialButton(
@@ -51,6 +165,7 @@ class _AddPostoState extends State<AddPosto> {
                 child: Text('Cadastrar'),
                 onPressed: () {
                   Navigator.of(context).pop(address.text.toString());
+                  Navigator.pop(context);
                 },
               )
             ],
@@ -64,7 +179,7 @@ class _AddPostoState extends State<AddPosto> {
         markerId: markerId,
         position: LatLng(lat, long),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
-        infoWindow: InfoWindow(snippet: addressLocation));
+        infoWindow: InfoWindow(snippet: nomePosto));
     setState(() {
       markers[markerId] = _marker;
     });
@@ -91,14 +206,18 @@ class _AddPostoState extends State<AddPosto> {
         child: GoogleMap(
             onTap: (tapped) async {
               await createAlertDialog(context).then((onValue) {
-                addressLocation = onValue.toString();
+
               });
               getMarkers(tapped.latitude, tapped.longitude);
               GeoFirePoint point = geo.point(
                   latitude: tapped.latitude, longitude: tapped.longitude);
               await FirebaseFirestore.instance.collection('postos').add({
-                'address': addressLocation,
+                'address': nomePosto,
                 'position': point.data,
+                'precogasolina': prGasol,
+                'precoetanol': prEtan,
+                'precodiesel': prDie,
+                'datacad': dataCad,
               });
               setState(() {});
             },
