@@ -1,8 +1,13 @@
+import 'package:agile_gas_app/models/agilegasuser.dart';
 import 'package:agile_gas_app/shared/constants.dart';
 import 'package:agile_gas_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/screens/services/auth.dart';
 import 'package:agile_gas_app/screens/home/car_home.dart';
+import 'package:agile_gas_app/screens/services/car_database.dart';
+import 'package:agile_gas_app/models/agilegasuser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class Veiculos extends StatefulWidget{
 
@@ -18,13 +23,12 @@ class _VeiculosState extends State<Veiculos>{
   final AuthService _auth = AuthService(); //recebe mesmo _auth do método construtor de AuthService em auth.dart
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
-  String marca='';
-  String modelo='';
-  String ano='';
-  String motor='';
-  String cor='';
-  String placa='';
-  String renevam='';
+  String marca ='';
+  String modelo ='';
+  String ano ='';
+  String motor ='';
+  String cor ='';
+  String placa ='';
 
   @override
   Widget build(BuildContext context){
@@ -217,7 +221,26 @@ class _VeiculosState extends State<Veiculos>{
                                           padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                           child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                           onPressed: () async {
-                                            //Pegar todas as variaveis e armazenar no banco de dados aqui
+                                            final user = Provider.of<AgileGasUser>(context, listen: false);
+                                            final usersRef = FirebaseFirestore.instance.collection('users');
+
+                                            usersRef.get().then((snapshot){
+                                              snapshot.docs.forEach((doc){ //percorre os docs
+                                                if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+                                                  var numCars = doc.data()['cars'];
+                                                  numCars++;
+                                                  CarsDataBaseService(uid: doc.data()['uid'], nCar: numCars).updateCarData(doc.data()['uid'], numCars, marca, modelo, ano, motor, cor, placa);
+                                                  
+                                                  FirebaseFirestore.instance.collection('users').doc(user.uid).update({"cars": numCars});
+                                                  Navigator.pop(context);
+                                                } else {
+                                                  Navigator.pop(context);
+                                                }
+                                              });
+                                            });
+
+
+
                                           }
                                       ),
                                     ),

@@ -61,7 +61,6 @@ class AuthService { // interagir com as formas de autenticação do firebase
       User user = result.user; //FirebaseUser deprecated
       //create a new document for the new user id
       await UserDataBaseService(uid: user.uid).updateUserData(user.uid, name, cpf, email, 0);
-      await CarsDataBaseService(uid: user.uid).updateCarData(user.uid, "Chevrolet", "Jeep Rebaixado", 2008, "Motor de Metal", "Vermelho", "JVC-2020", "????", 1);
       return _newUserFromFirebaseUser(user, name, cpf);
     }catch(e){
       print(e.toString());
