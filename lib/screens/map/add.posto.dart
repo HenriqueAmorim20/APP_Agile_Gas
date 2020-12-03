@@ -40,6 +40,8 @@ class _AddPostoState extends State<AddPosto> {
   String prDie;
   String dataCad;
 
+  bool cadastrar;
+
   TextEditingController address = new TextEditingController();
 
   Future<String> createAlertDialog(BuildContext context) {
@@ -69,7 +71,6 @@ class _AddPostoState extends State<AddPosto> {
                             hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
 
                           ),
-                          validator: (val) => val.isEmpty ? 'Nome inválido.' : null, //verifica se o campo está vazio
                           onChanged: (val){ //toda vez que o valor do campo mudar
                             setState(() => nomePosto = val); //mude o valor da variável email para o valor do campo
                           }
@@ -164,6 +165,7 @@ class _AddPostoState extends State<AddPosto> {
                 elevation: 5.0,
                 child: Text('Cadastrar'),
                 onPressed: () {
+
                   Navigator.of(context).pop(address.text.toString());
                   Navigator.pop(context);
                 },
@@ -209,17 +211,21 @@ class _AddPostoState extends State<AddPosto> {
 
               });
               getMarkers(tapped.latitude, tapped.longitude);
-              GeoFirePoint point = geo.point(
-                  latitude: tapped.latitude, longitude: tapped.longitude);
-              await FirebaseFirestore.instance.collection('postos').add({
-                'address': nomePosto,
-                'position': point.data,
-                'precogasolina': prGasol,
-                'precoetanol': prEtan,
-                'precodiesel': prDie,
-                'datacad': dataCad,
-              });
-              setState(() {});
+              if(nomePosto!=null&&prDie!=null&&prEtan!=null&&prGasol!=null&&dataCad!=null){
+                GeoFirePoint point = geo.point(
+                    latitude: tapped.latitude, longitude: tapped.longitude);
+                await FirebaseFirestore.instance.collection('postos').add({
+                  'address': nomePosto,
+                  'position': point.data,
+                  'precogasolina': prGasol,
+                  'precoetanol': prEtan,
+                  'precodiesel': prDie,
+                  'datacad': dataCad,
+                });
+                setState(() {});
+              }
+
+
             },
             mapType: MapType.hybrid,
             compassEnabled: true,
