@@ -223,9 +223,7 @@ class _AddPostoState extends State<AddPosto> {
                   'datacad': dataCad,
                 });
                 setState(() {});
-              }
-
-
+              } else Navigator.pop(context);
             },
             mapType: MapType.hybrid,
             compassEnabled: true,
