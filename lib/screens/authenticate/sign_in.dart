@@ -154,7 +154,7 @@ class _SignInState extends State<SignIn>{
                                 onPressed: () async {
                                   if (_formKey.currentState.validate()) { //verifica se esse formulário possui tipos de dados corretos
                                     setState(() => loading = true);
-                                    dynamic result = await _auth.signInWithEmailAndPassword(email, password); //se sim loga o usuário com essa senha e base
+                                    dynamic result = await _auth.signInWithEmailAndPassword(email.trim(), password.trim()); //se sim loga o usuário com essa senha e base
                                     if (result == null) { //retorna null se não estiver cadastrado
                                       setState(() {
                                         error = 'E-mail/Senha incorretos!';
