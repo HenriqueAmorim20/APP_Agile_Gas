@@ -2,12 +2,14 @@ class Car{
   final String ownedByUid;
   final String marca;
   final String modelo;
-  final int ano;
+  final String ano;
   final String motor;
   final String cor;
   final String placa;
-  final String renevam;
-  final int combustivel;
+  /*final String combustivel;
+  final double precoTotal;
+  final double precoLitro;*/
+
 
   Car({this.ownedByUid,
     this.marca,
@@ -16,7 +18,8 @@ class Car{
     this.motor,
     this.cor,
     this.placa,
-    this.renevam,
-    this.combustivel
+    /*this.combustivel,
+    this.precoTotal,
+    this.precoLitro,*/
   });
 }

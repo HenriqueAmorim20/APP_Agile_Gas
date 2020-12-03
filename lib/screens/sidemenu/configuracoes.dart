@@ -1,8 +1,11 @@
 import 'package:agile_gas_app/shared/constants.dart';
 import 'package:agile_gas_app/shared/loading.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/screens/services/auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:agile_gas_app/models/agilegasuser.dart';
 
 
 class Configuracoes extends StatefulWidget{
@@ -19,6 +22,7 @@ class _ConfiguracoesState extends State<Configuracoes>{
   final AuthService _auth = AuthService(); //recebe mesmo _auth do método construtor de AuthService em auth.dart
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
+  String old_email = '';
   String senha='';
   String novo_nome='';
   String novo_email='';
@@ -149,7 +153,23 @@ class _ConfiguracoesState extends State<Configuracoes>{
                                                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                                     child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                                     onPressed: () async {
-                                                      //Pegar todas as variaveis e armazenar no banco de dados aqui
+                                                      final user = Provider.of<AgileGasUser>(context, listen: false); //pega o usuario atual
+                                                      final usersRef = FirebaseFirestore.instance.collection('users'); //acessa o doc dos usuarios
+
+                                                      usersRef.get().then((snapshot){
+                                                        snapshot.docs.forEach((doc){ //percorre os docs
+                                                          if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+                                                            var result = _auth.signInWithEmailAndPassword(doc.data()['email'], senha);
+                                                            if(result != null){
+                                                              FirebaseFirestore.instance.collection('users').doc(user.uid).update({"name": novo_nome});
+                                                            } else {
+                                                              Navigator.pop(context);
+                                                            }
+                                                          }
+                                                        });
+                                                      });
+
+                                                      Navigator.pop(context);
                                                     }
                                                 ),
                                               ),
@@ -259,7 +279,25 @@ class _ConfiguracoesState extends State<Configuracoes>{
                                                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                                     child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                                     onPressed: () async {
-                                                      //Pegar todas as variaveis e armazenar no banco de dados aqui
+
+                                                      final user = Provider.of<AgileGasUser>(context, listen: false); //pega o usuario atual
+                                                      final usersRef = FirebaseFirestore.instance.collection('users'); //acessa o doc dos usuarios
+                                                      print("UID: " + user.uid);
+
+                                                      usersRef.get().then((snapshot){
+                                                        snapshot.docs.forEach((doc){ //percorre os docs
+                                                          if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+                                                            print("EMAIL ENCONTRADO: " + doc.data()['email']);
+                                                            _auth.changeEmail(novo_email, doc.data()['email'], senha);  //atualiza o email
+                                                          }
+                                                        });
+                                                      });
+
+                                                      Navigator.pop(context);
+
+
+
+
                                                     }
                                                 ),
                                               ),
@@ -369,7 +407,23 @@ class _ConfiguracoesState extends State<Configuracoes>{
                                                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                                     child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                                     onPressed: () async {
-                                                      //Pegar todas as variaveis e armazenar no banco de dados aqui
+                                                      final user = Provider.of<AgileGasUser>(context, listen: false); //pega o usuario atual
+                                                      final usersRef = FirebaseFirestore.instance.collection('users'); //acessa o doc dos usuarios
+
+                                                      usersRef.get().then((snapshot){
+                                                        snapshot.docs.forEach((doc){ //percorre os docs
+                                                          if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+                                                            var result = _auth.signInWithEmailAndPassword(doc.data()['email'], senha);
+                                                            if(result != null){
+                                                              FirebaseFirestore.instance.collection('users').doc(user.uid).update({"cpf": novo_cpf});
+                                                            } else {
+                                                              Navigator.pop(context);
+                                                            }
+                                                          }
+                                                        });
+                                                      });
+
+                                                      Navigator.pop(context);
                                                     }
                                                 ),
                                               ),

@@ -3,14 +3,15 @@ import 'package:agile_gas_app/models/car.dart';
 
 class CarsDataBaseService {
   final String uid;
+  final int nCar;
 
-  CarsDataBaseService({this.uid}); //construtor recebe o uid do usuário
+  CarsDataBaseService({this.uid, this.nCar}); //construtor recebe o uid do usuário
 
   //collection reference
   final CollectionReference carsCollection = FirebaseFirestore.instance.collection('cars');
 
-  Future updateCarData(String uid, String marca, String modelo, int ano, String motor, String cor, String placa, String renevam, int combustivel) async {
-    return await carsCollection.doc(uid).set({
+  Future updateCarData(String uid, int  nCar, String marca, String modelo, String ano, String motor, String cor, String placa/*, String combustivel, double precoTotal, double precoLitro*/) async {
+    return await carsCollection.doc(uid + (nCar+1).toString()).set({
       'ownedByUid': uid,
       'marca': marca,
       'modelo': modelo,
@@ -18,8 +19,9 @@ class CarsDataBaseService {
       'motor': motor,
       'cor': cor,
       'placa': placa,
-      'renevam': renevam,
-      'combustivel': combustivel,
+      /*'combustivel': combustivel,
+      'precoTotal': precoTotal,
+      'precoLitro': precoLitro,*/
     });
   }
 
@@ -30,12 +32,13 @@ class CarsDataBaseService {
         ownedByUid: doc.data()['ownedByUid'] ?? '',
         marca: doc.data()['marca'] ?? '',
         modelo: doc.data()['modelo'] ?? '',
-        ano: doc.data()['ano'] ?? 0,
+        ano: doc.data()['ano'] ?? '',
         motor: doc.data()['motor'] ?? '',
         cor: doc.data()['cor'] ?? '',
         placa: doc.data()['placa'] ?? '',
-        renevam: doc.data()['renevam'] ?? '',
-        combustivel: doc.data()['combustivel'] ?? 0,
+        /*combustivel: doc.data()['combustivel'] ?? '',
+        precoTotal: doc.data()['precoTotal'] ?? 0.0,
+        precoLitro: doc.data()['precoLitro'] ?? 0.0,*/
       );
     }).toList();
   }
