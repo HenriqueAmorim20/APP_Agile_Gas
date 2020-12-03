@@ -231,7 +231,7 @@ class _VeiculosState extends State<Veiculos>{
                                                   numCars++;
                                                   CarsDataBaseService(uid: doc.data()['uid'], nCar: numCars).updateCarData(doc.data()['uid'], numCars, marca, modelo, ano, motor, cor, placa);
 
-                                                  FirebaseFirestore.instance.collection('users').doc(user.uid).update({"cars": numCars});
+                                                  FirebaseFirestore.instance.collection('users').doc(user.uid).update({"cars": numCars}); 
                                                   Navigator.pop(context);
                                                 }
                                               });

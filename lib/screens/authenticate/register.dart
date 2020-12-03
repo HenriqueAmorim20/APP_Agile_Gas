@@ -294,8 +294,8 @@ class _RegisterState extends State<Register> {
                             setState(() => loading = true);
                             dynamic result =
                             await _auth.registerWithEmailAndPassword(
-                                email,
-                                password, nome, cpf); //se sim loga o usuário com essa senha e base
+                                email.trim(),
+                                password.trim(), nome, cpf); //se sim loga o usuário com essa senha e base
                             if (result == null) {
                               //retorna null se não tiver conseguido cadastrar
                               setState(() {
