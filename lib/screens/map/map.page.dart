@@ -1,4 +1,4 @@
-    import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +16,8 @@ class _MapPageState extends State<MapPage> {
   String prEtan;
   String prDie;
   String dataCad;
+  var currentLocation;
+
 
   GoogleMapController mapController;
 
@@ -26,9 +28,12 @@ class _MapPageState extends State<MapPage> {
     getCurrentLocation();
     getMarkerData();
     super.initState();
+    Geolocator().getCurrentPosition().then((currloc) {
+      currentLocation = currloc;
+    });
   }
 
-  getMarkerData() async {
+  Future getMarkerData() async {
     FirebaseFirestore.instance.collection('postos').get().then((docs) {
       if (docs.docs.isNotEmpty) {
         for (int i = 0; i < docs.docs.length; i++) {
@@ -38,7 +43,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  initMarker(specify, specifyId) async {
+  Future initMarker(specify, specifyId) async {
     var markerIdVal = specifyId;
     final MarkerId markerId = MarkerId(markerIdVal);
     final Marker marker = Marker(
@@ -265,7 +270,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  getCurrentLocation() async {
+  Future getCurrentLocation() async {
     final geoposition = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
@@ -277,28 +282,27 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    Set<Marker> getMarker() {
-      return <Marker>[
-        Marker(
-            markerId: MarkerId('postos'),
-            position: LatLng(21.1458, 79.0882),
-            icon: BitmapDescriptor.defaultMarker,
-            infoWindow: InfoWindow(title: 'Home'))
-      ].toSet();
-    }
-
-    return Scaffold(
-      body: GoogleMap(
-          mapType: MapType.normal,
-          markers: Set<Marker>.of(markers.values),
-          myLocationEnabled: true,
-          initialCameraPosition: CameraPosition(
-            target: LatLng(latitudeData, longitudeData),
-            zoom: 11.0,
-          ),
-          onMapCreated: (GoogleMapController controller) {
-            controller = controller;
-          }),
-    );
+    return currentLocation == null
+        ? Container(
+            alignment: Alignment.center,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : Stack(
+            children: <Widget>[
+              GoogleMap(
+                  mapType: MapType.normal,
+                  markers: Set<Marker>.of(markers.values),
+                  myLocationEnabled: true,
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(latitudeData, longitudeData),
+                    zoom: 11.0,
+                  ),
+                  onMapCreated: (GoogleMapController controller) {
+                    controller = controller;
+                  }),
+            ],
+          );
   }
 }
