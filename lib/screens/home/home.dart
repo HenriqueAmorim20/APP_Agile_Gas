@@ -9,7 +9,7 @@ import 'package:agile_gas_app/screens/sidemenu/UploadData.dart';
 import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
 import 'package:agile_gas_app/shared/constants.dart';
 
-class Home extends StatefulWidget{
+class Home extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomeState();
 }
@@ -44,175 +44,211 @@ class _HomeState extends State<Home> {
       ),
       body: Container(
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-            ),
-        child: new Stack(
-          children: [
-            MapPage(),
-            Container(
-              margin: EdgeInsets.symmetric(vertical:50),
-              child:Column(
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                            child: RawMaterialButton(
-                              onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                        backgroundColor: Colors.grey[200],
-                                        content: Stack(
-                                          overflow: Overflow.visible,
+        decoration: BoxDecoration(),
+        child: new Stack(children: [
+          MapPage(),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 50),
+            child: Column(
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Container(
+                          child: RawMaterialButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  backgroundColor: Colors.grey[200],
+                                  content: Stack(
+                                    overflow: Overflow.visible,
+                                    children: <Widget>[
+                                      Form(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
-                                            Form(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-
-                                                children: <Widget>[
-                                                  Padding(
-                                                      padding: EdgeInsets.all(8.0),
-                                                      child: Text("Registre um abastecimento!",
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          color: Colors.black,
-                                                        ),
-
-                                                      )
+                                            Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  "Registre um abastecimento!",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
                                                   ),
-                                                  Padding(
-                                                    padding: EdgeInsets.all(8.0),
-                                                    child: TextFormField(
-                                                        cursorColor: Colors.black.withOpacity(0.6),
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                        ),
-                                                        decoration: textInputDecoration.copyWith(
-                                                            contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                                            hintText: 'Preço Total: ex.R\$249,50',
-                                                            hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
-
-                                                        ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.all(8.0),
-                                                    child: TextFormField(
-                                                      cursorColor: Colors.black.withOpacity(0.6),
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                      ),
-                                                      decoration: textInputDecoration.copyWith(
-                                                        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                                        hintText: 'Preço Litro: ex.R\$4,52',
-                                                        hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
-
-                                                      ),
-                                                    ),
-                                                  ),
-                                                   Container(
-                                                     child: Combustivel(),
-                                                   ),
-                                                  Container(
-
-                                                    //PARTE PARA IMPLEMENTAR A LISTA DE VEÍCULOS
-                                                    child: Veiculo(),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        alignment: Alignment.bottomLeft,
-                                                        margin: EdgeInsets.symmetric(horizontal: 17),
-                                                        child:RaisedButton(
-                                                          color: Colors.red,
-                                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                                          child: Text("CANCELAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                                          onPressed: () {
-                                                            Navigator.pop(context);
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        alignment: Alignment.bottomRight,
-                                                        margin: EdgeInsets.symmetric(horizontal: 0),
-                                                        child: RaisedButton(
-                                                            color: Colors.red,
-                                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
-                                                            child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                                            onPressed: () async {
-                                                              //sinaliza para a widget que deve ser apresentada
-                                                            }
-                                                        ),
-                                                      ),
-
-                                                    ],
-                                                  ),
-
-                                                ],
+                                                )),
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: TextFormField(
+                                                cursorColor: Colors.black
+                                                    .withOpacity(0.6),
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                                decoration: textInputDecoration
+                                                    .copyWith(
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 20.0),
+                                                  hintText:
+                                                      'Preço Total: ex.R\$249,50',
+                                                  hintStyle: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                ),
                                               ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: TextFormField(
+                                                cursorColor: Colors.black
+                                                    .withOpacity(0.6),
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
+                                                decoration: textInputDecoration
+                                                    .copyWith(
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 20.0),
+                                                  hintText:
+                                                      'Preço Litro: ex.R\$4,52',
+                                                  hintStyle: TextStyle(
+                                                      fontSize: 15.0,
+                                                      color: Colors.black
+                                                          .withOpacity(0.6)),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              child: Combustivel(),
+                                            ),
+                                            Container(
+                                              //PARTE PARA IMPLEMENTAR A LISTA DE VEÍCULOS
+                                              child: Veiculo(),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 17),
+                                                  child: RaisedButton(
+                                                    color: Colors.red,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 0,
+                                                            vertical: 15),
+                                                    child: Text("CANCELAR",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  alignment:
+                                                      Alignment.bottomRight,
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 0),
+                                                  child: RaisedButton(
+                                                      color: Colors.red,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 0,
+                                                              vertical: 15),
+                                                      child: Text("CONFIRMAR",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      onPressed: () async {
+                                                        //sinaliza para a widget que deve ser apresentada
+                                                      }),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                      );
-                                    });
-                              },
-                              elevation: 2.0,
-                              fillColor: Colors.black,
-                              child: Icon(
-                                Icons.local_gas_station,
-                                color: Colors.red,
-                                size: 35.0,
-                              ),
-                              padding: EdgeInsets.all(15.0),
-                              shape: CircleBorder(),
-                            )
-                        ),
-                      ],
-                    ),
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(vertical:20),
-                  ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Container(
-                            child: RawMaterialButton(
-                              onPressed: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Cadastrar_posto()),
+                                      ),
+                                    ],
+                                  ),
                                 );
-                              },
-                              elevation: 2.0,
-                              fillColor: Colors.black,
-                              child: Icon(
-                                Icons.water_damage,
-                                color: Colors.red,
-                                size: 35.0,
-                              ),
-                              padding: EdgeInsets.all(15.0),
-                              shape: CircleBorder(),
-
-                            )
+                              });
+                        },
+                        elevation: 2.0,
+                        fillColor: Colors.black,
+                        child: Icon(
+                          Icons.local_gas_station,
+                          color: Colors.red,
+                          size: 35.0,
                         ),
-                      ],
-                    ),
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(vertical:20),
+                        padding: EdgeInsets.all(15.0),
+                        shape: CircleBorder(),
+                      )),
+                    ],
                   ),
-
-                ],
-              ),
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                ),
+                Container(
+                  child: Row(
+                    children: [
+                      Container(
+                          child: RawMaterialButton(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Cadastrar_posto()),
+                          );
+                        },
+                        elevation: 2.0,
+                        fillColor: Colors.black,
+                        child: Icon(
+                          Icons.water_damage,
+                          color: Colors.red,
+                          size: 35.0,
+                        ),
+                        padding: EdgeInsets.all(15.0),
+                        shape: CircleBorder(),
+                      )),
+                    ],
+                  ),
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                ),
+              ],
             ),
-          ]),
+          ),
+        ]),
       ),
       drawer: ClipRRect(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(45)),
@@ -256,7 +292,6 @@ class _HomeState extends State<Home> {
                             MaterialPageRoute(builder: (context) => Gastos()),
                           );
                         }),
-
                     Divider(
                       color: Colors.white.withOpacity(0.5),
                     ),
@@ -319,48 +354,46 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget Combustivel(){
+  Widget Combustivel() {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          return  DropdownButton(
-            hint: Text('Combustível'),
-            value: tipo_combustivel,
-            onChanged: (newValue) {
-              setState(() {
-                tipo_combustivel = newValue;
-              });
-            },
-            items: _combustivel.map((combus) {
-              return DropdownMenuItem(
-                child: new Text(combus),
-                value: combus,
-              );
-            }).toList(),
+      return DropdownButton(
+        hint: Text('Combustível'),
+        value: tipo_combustivel,
+        onChanged: (newValue) {
+          setState(() {
+            tipo_combustivel = newValue;
+          });
+        },
+        items: _combustivel.map((combus) {
+          return DropdownMenuItem(
+            child: new Text(combus),
+            value: combus,
           );
-        });
-
+        }).toList(),
+      );
+    });
   }
 
-  Widget Veiculo(){
+  Widget Veiculo() {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          return  DropdownButton(
-            hint: Text('Veículo'),
-            value: tipo_veiculo,
-            onChanged: (newValue) {
-              setState(() {
-                tipo_veiculo = newValue;
-              });
-            },
-            items: _veiculo.map((vei) {
-              return DropdownMenuItem(
-                child: new Text(vei),
-                value: vei,
-              );
-            }).toList(),
+      return DropdownButton(
+        hint: Text('Veículo'),
+        value: tipo_veiculo,
+        onChanged: (newValue) {
+          setState(() {
+            tipo_veiculo = newValue;
+          });
+        },
+        items: _veiculo.map((vei) {
+          return DropdownMenuItem(
+            child: new Text(vei),
+            value: vei,
           );
-        });
-
+        }).toList(),
+      );
+    });
   }
 
   Widget _createHeader() {
@@ -382,7 +415,6 @@ class _HomeState extends State<Home> {
         ]));
   }
 }
-
 
 class PictureWidget4 extends StatelessWidget {
   @override
