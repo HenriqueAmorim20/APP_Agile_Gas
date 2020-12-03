@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
         }
       });
     });
-
+    //fim da captura da lista de carros
 
 
 
@@ -149,6 +149,10 @@ class _HomeState extends State<Home> {
                                                       color: Colors.black
                                                           .withOpacity(0.6)),
                                                 ),
+                                                  validator: (val) => val.isEmpty ? 'Preço inválido.' : null, //verifica se o campo está vazio
+                                                  onChanged: (val) { //toda vez que o valor do campo mudar
+                                                    setState(() => total = val);
+                                                  }
                                               ),
                                             ),
                                             Padding(
@@ -173,6 +177,10 @@ class _HomeState extends State<Home> {
                                                       color: Colors.black
                                                           .withOpacity(0.6)),
                                                 ),
+                                                  validator: (val) => val.isEmpty ? 'Preço inválido.' : null, //verifica se o campo está vazio
+                                                  onChanged: (val) { //toda vez que o valor do campo mudar
+                                                    setState(() => valor_litro = val);
+                                                  }
                                               ),
                                             ),
                                             Container(
@@ -237,7 +245,32 @@ class _HomeState extends State<Home> {
                                                                   FontWeight
                                                                       .bold)),
                                                       onPressed: () async {
-                                                        //sinaliza para a widget que deve ser apresentada
+
+                                                        var time = DateTime.now();
+                                                        carsRef.get().then((snapshot){
+                                                          snapshot.docs.forEach((doc){ //percorre os docs dos carros
+                                                            var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa'];
+                                                            if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado
+                                                              print("AKI: " + total + valor_litro);
+                                                                var carId = doc.id;
+                                                                var despesasRef = FirebaseFirestore.instance.collection('despesas');
+                                                                despesasRef.doc(carId+time.day.toString()+time.hour.toString()+time.second.toString()).set({
+                                                                  "precoTotal": total,
+                                                                  "precoLitro": valor_litro,
+                                                                  "combustivel": tipo_combustivel,
+                                                                  "carro": carNomePlaca,
+                                                                  "idCarro": carId,
+                                                                  "data": time,
+                                                                });
+                                                            }
+                                                          }
+                                                          );
+                                                        });
+
+
+
+
+
                                                       }),
                                                 ),
                                               ],
