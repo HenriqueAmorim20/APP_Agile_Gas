@@ -33,7 +33,7 @@ class _GastosState extends State<Gastos>{
             }
         ),
       ),
-      body: CarHome(),
+      body: CarHomeGastos(),
     );
   }
 }
