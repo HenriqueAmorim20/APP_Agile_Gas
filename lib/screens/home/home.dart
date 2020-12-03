@@ -8,6 +8,10 @@ import 'package:agile_gas_app/screens/sidemenu/cadastrar_posto.dart';
 import 'package:agile_gas_app/screens/sidemenu/UploadData.dart';
 import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
 import 'package:agile_gas_app/shared/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:agile_gas_app/models/agilegasuser.dart';
+import 'package:agile_gas_app/models/car.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget{
   @override
@@ -22,7 +26,7 @@ class _HomeState extends State<Home> {
   List<String> _combustivel = ['Gasolina', 'Etanol', 'Diesel'];
   String tipo_combustivel;
 
-  List<String> _veiculo = ['Camaro', 'Celta', 'Argo'];
+  List<String> _veiculo = [];
   String tipo_veiculo;
 
   String valor_litro = '';
@@ -31,6 +35,43 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
+    //capturar a lista de carros
+    final user = Provider.of<AgileGasUser>(context, listen: false);
+    final carsRef = FirebaseFirestore.instance.collection('cars');
+
+    var tempModelo = '';
+    var tempPlaca = '';
+    var espaco = '';
+    var tempString = '';
+
+    _veiculo.clear();
+    carsRef.get().then((snapshot){
+      snapshot.docs.forEach((doc){ //percorre os docs
+        if(doc.data()['ownedByUid'] == user.uid){ //até encontrar o do usuario atual
+          tempModelo = doc.data()['modelo'];
+          tempPlaca = doc.data()['placa'];
+          espaco = ' ';
+          tempString = tempModelo+espaco+tempPlaca;
+
+          var n = _veiculo.where((v) => v == tempString).toList();
+
+          if(n.isEmpty == true){
+            _veiculo.add(tempString);
+          }
+        }
+      });
+    });
+
+
+
+
+
+
+
+
+
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: new AppBar(
