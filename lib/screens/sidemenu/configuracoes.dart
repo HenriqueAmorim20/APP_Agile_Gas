@@ -193,7 +193,7 @@ class _ConfiguracoesState extends State<Configuracoes>{
                     ListTile(
                         leading: Icon(Icons.email,
                             color: Colors.white),
-                        title: Text("Alterar seu Email", style: TextStyle(color: Colors.white)),
+                        title: Text("Altere seu Email", style: TextStyle(color: Colors.white)),
                         onTap: () async {
                           showDialog(
                               context: context,
