@@ -256,7 +256,7 @@ class _VeiculosState extends State<Veiculos>{
           ),
         ],
       ),
-      body: CarHome(),
+      body:CarHome(),
     );
   }
 }

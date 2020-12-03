@@ -16,7 +16,7 @@ class CarHome extends StatelessWidget {
       value: CarsDataBaseService().cars, //stream de user_database.dart
       child: Scaffold(
         backgroundColor: Colors.grey[900],
-        body: CarsList(),
+        body: Container(child: CarsList(),margin: EdgeInsets.symmetric(vertical:10),),
       ),
     );
   }
