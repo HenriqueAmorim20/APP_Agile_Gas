@@ -68,7 +68,7 @@ class _HomeState extends State<Home> {
                                         content: Stack(
                                           overflow: Overflow.visible,
                                           children: <Widget>[
-                                            Form(
+                                            SingleChildScrollView(
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
 

@@ -42,7 +42,7 @@ packages:
       name: cached_network_image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.3"
+    version: "2.4.1"
   characters:
     dependency: transitive
     description:
@@ -236,7 +236,7 @@ packages:
       name: flutter_map
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1+1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -622,7 +622,7 @@ packages:
       name: tuple
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   typed_data:
     dependency: transitive
     description:
