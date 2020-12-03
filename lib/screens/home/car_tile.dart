@@ -69,7 +69,7 @@ class CarTile extends StatelessWidget {
                             Divider(color: Colors.black.withOpacity(0.5)),
                             Text(mostrar_ano),
                             Divider(color: Colors.black.withOpacity(0.5)),
-                            SizedBox(height: 20,),w
+                            SizedBox(height: 20,),
                             Container(
                               alignment: Alignment.bottomCenter,
                               margin: EdgeInsets.symmetric(horizontal: 0),
