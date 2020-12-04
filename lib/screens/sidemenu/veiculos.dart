@@ -24,12 +24,12 @@ class _VeiculosState extends State<Veiculos> {
       AuthService(); //recebe mesmo _auth do método construtor de AuthService em auth.dart
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
-  String marca = '';
-  String modelo = '';
-  String ano = '';
-  String motor = '';
-  String cor = '';
-  String placa = '';
+  String marca = null;
+  String modelo = null;
+  String ano = null;
+  String motor = null;
+  String cor =null;
+  String placa = null;
 
   @override
   Widget build(BuildContext context) {
@@ -292,54 +292,56 @@ class _VeiculosState extends State<Veiculos> {
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                onPressed: () async {
-                                                  final user =
-                                                      Provider.of<AgileGasUser>(
-                                                          context,
-                                                          listen: false);
-                                                  final usersRef =
-                                                      FirebaseFirestore.instance
-                                                          .collection('users');
+                                                onPressed: ()  {
+                                                  if(marca!=null&&modelo!=null&&ano!=null&&motor!=null&&cor!=null&&placa!=null){
+                                                    final user =
+                                                    Provider.of<AgileGasUser>(
+                                                        context,
+                                                        listen: false);
+                                                    final usersRef =
+                                                    FirebaseFirestore.instance
+                                                        .collection('users');
 
-                                                  usersRef
-                                                      .get()
-                                                      .then((snapshot) {
-                                                    snapshot.docs
-                                                        .forEach((doc) {
-                                                      //percorre os docs
-                                                      if (doc.data()['uid'] ==
-                                                          user.uid) {
-                                                        //até encontrar o do usuario atual
-                                                        var numCars =
-                                                            doc.data()['cars'];
-                                                        numCars++;
-                                                        CarsDataBaseService(
-                                                                uid: doc.data()[
-                                                                    'uid'],
-                                                                nCar: numCars)
-                                                            .updateCarData(
-                                                                doc.data()[
-                                                                    'uid'],
-                                                                numCars,
-                                                                marca,
-                                                                modelo,
-                                                                ano,
-                                                                motor,
-                                                                cor,
-                                                                placa);
+                                                    usersRef
+                                                        .get()
+                                                        .then((snapshot) {
+                                                      snapshot.docs
+                                                          .forEach((doc) {
+                                                        //percorre os docs
+                                                        if (doc.data()['uid'] ==
+                                                            user.uid) {
+                                                          //até encontrar o do usuario atual
+                                                          var numCars =
+                                                          doc.data()['cars'];
+                                                          numCars++;
+                                                          CarsDataBaseService(
+                                                              uid: doc.data()[
+                                                              'uid'],
+                                                              nCar: numCars)
+                                                              .updateCarData(
+                                                              doc.data()[
+                                                              'uid'],
+                                                              numCars,
+                                                              marca,
+                                                              modelo,
+                                                              ano,
+                                                              motor,
+                                                              cor,
+                                                              placa);
 
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection('users')
-                                                            .doc(user.uid)
-                                                            .update({
-                                                          "cars": numCars
-                                                        });
-                                                        Navigator.pop(context);
-                                                        setState(() {});
-                                                      }
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection('users')
+                                                              .doc(user.uid)
+                                                              .update({
+                                                            "cars": numCars
+                                                          });
+                                                          Navigator.pop(context);
+                                                          setState(() {});
+                                                        }
+                                                      });
                                                     });
-                                                  });
+                                                  }
                                                 }),
                                           ),
                                         ],
