@@ -15,8 +15,10 @@ class _MapPageState extends State<MapPage> {
   String prGasol;
   String prEtan;
   String prDie;
-  String dataCad;
+  String dataCad ='';
+  String id;
   var currentLocation;
+  var time = DateTime.now( );
 
 
   GoogleMapController mapController;
@@ -43,7 +45,9 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+
   Future initMarker(specify, specifyId) async {
+    String id = specify['geohash'];
     var markerIdVal = specifyId;
     final MarkerId markerId = MarkerId(markerIdVal);
     final Marker marker = Marker(
@@ -199,25 +203,7 @@ class _MapPageState extends State<MapPage> {
                                                                   }
                                                               ),
                                                             ),
-                                                            Padding(
-                                                              padding: EdgeInsets.all(8.0),
-                                                              child: TextFormField(
-                                                                  cursorColor: Colors.black.withOpacity(0.6),
-                                                                  textAlign: TextAlign.left,
-                                                                  style: TextStyle(
-                                                                    color: Colors.black,
-                                                                  ),
-                                                                  decoration: textInputDecoration.copyWith(
-                                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                                                    hintText: 'Data: ex. 02/12/2020',
-                                                                    hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
-                                                                  ),
-                                                                  validator: (val) => val.isEmpty ? 'Preço inválido.' : null, //verifica se o campo está vazio
-                                                                  onChanged: (val){ //toda vez que o valor do campo mudar
-                                                                    setState(() => dataCad = val); //mude o valor da variável email para o valor do campo
-                                                                  }
-                                                              ),
-                                                            ),
+
                                                             Container(
                                                               alignment: Alignment.bottomCenter,
                                                               margin: EdgeInsets.symmetric(horizontal: 0),
@@ -227,9 +213,13 @@ class _MapPageState extends State<MapPage> {
                                                                   padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                                                                   child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                                                   onPressed: () async {
+                                                                    String dia = time.day.toString();
+                                                                    String mes  = time.month.toString();
+                                                                    String ano = time.year.toString();
+                                                                    dataCad = dia+'/'+mes+'/'+ano;
                                                                     if(prDie!=null&&prEtan!=null&&prGasol!=null&&dataCad!=null){
+
                                                                         String geohash = specify['geohash'];
-                                                                        String id = '';
 
                                                                         var postosRef = FirebaseFirestore.instance.collection('postos');
 
@@ -249,14 +239,7 @@ class _MapPageState extends State<MapPage> {
 
                                                                           );
                                                                         });
-
-
-
-
-
-
                                                                     }
-                                                                    Navigator.pop(context);
                                                                     Navigator.pop(context);
                                                                   }
                                                               ),
