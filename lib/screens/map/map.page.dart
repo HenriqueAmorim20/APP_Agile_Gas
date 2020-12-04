@@ -218,7 +218,6 @@ class _MapPageState extends State<MapPage> {
                                                                     String ano = time.year.toString();
                                                                     dataCad = dia+'/'+mes+'/'+ano;
                                                                     if(prDie!=null&&prEtan!=null&&prGasol!=null&&dataCad!=null){
-                                                                      
                                                                     }
                                                                     Navigator.pop(context);
                                                                     Navigator.pop(context);

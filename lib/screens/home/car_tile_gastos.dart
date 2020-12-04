@@ -104,9 +104,9 @@ class CarTileGastos extends StatelessWidget {
                                     Divider(color: Colors.black.withOpacity(0.5)),
                                     Column(
                                         children: [
-                                          Text("Total: $precoTotal"),
-                                          Text(" Litro $precoLitro"),
-                                          Text(" Tipo: $tipo"),
+                                          Text("Total: R\$$precoTotal", style: TextStyle(fontSize: 20)),
+                                          Text("Preço litro: R\$$precoLitro", style: TextStyle(fontSize: 20)),
+                                          Text("Combustível: $tipo", style: TextStyle(fontSize: 20)),
                                         ],
                                     ),],
                                 ),
