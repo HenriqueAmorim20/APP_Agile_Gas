@@ -427,7 +427,6 @@ class _HomeState extends State<Home> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.pop(context);
                           _auth.signOut();
                         }),
                   ]),

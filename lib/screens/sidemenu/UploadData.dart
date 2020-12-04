@@ -147,9 +147,9 @@ class _UploadDataState extends State<UploadData> {
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
-        Navigator.push(context,
-          MaterialPageRoute(builder: (context) =>Home()),
-        );
+        Navigator.pop(context);
+        Navigator.pop(context);
+        Navigator.pop(context);
       },
     );
     // configura o  AlertDialog
