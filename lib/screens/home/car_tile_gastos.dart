@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/models/car.dart';
 
@@ -9,6 +10,8 @@ class CarTileGastos extends StatelessWidget {
   String mostrar_ano = 'Ano: ', mostrar_cor = 'Cor: ', mostrar_placa = 'Placa: ', mostrar_motor = 'Motor: ', mostrar_marca = 'Marca: ', mostrar_modelo = 'Modelo: ';
   String gastos_data, gastos_totais, gastos_parcial, gastos_pm, gastos_combus;
 
+
+
   @override
   Widget build(BuildContext context) {
     mostrar_ano +=car.ano;
@@ -17,6 +20,48 @@ class CarTileGastos extends StatelessWidget {
     mostrar_motor+=car.motor;
     mostrar_modelo+=car.modelo;
     mostrar_marca+=car.marca;
+
+    String precoTotal = '';
+    String precoLitro = '';
+    String tipo = '';
+    String data = '';
+
+
+    var gastosRef = FirebaseFirestore.instance.collection('despesas');
+    var carsRef = FirebaseFirestore.instance.collection('cars');
+
+    carsRef.get().then((snapshot){
+      snapshot.docs.forEach((doc){ //percorre os docs dos carros
+        var tipo_veiculo = doc.data()['modelo'] + " " + doc.data()['placa'];
+        var carNomePlaca = car.modelo + " " + car.placa;
+
+        if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado
+
+          var carId = doc.id;
+
+
+          gastosRef.get().then((snapshot){
+            snapshot.docs.forEach((doc){ //percorre os docs dos carros
+              if(doc.data()['idCarro'] == carId){ //até encontrar o carro selecionado
+                precoTotal = doc.data()['precoTotal'];
+                precoLitro = doc.data()['precoLitro'];
+                tipo = doc.data()['combustivel'];
+              }
+            }
+            );
+          });
+
+
+
+        }
+      }
+      );
+    });
+
+
+
+
+
 
     return Container(
       margin: EdgeInsets.symmetric(vertical:5, horizontal:10),
@@ -45,7 +90,7 @@ class CarTileGastos extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context){
                         return AlertDialog(
-                          title: Text("Gastos totais R\$1023,23"),
+                          title: Text("Último abastecimento."),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           backgroundColor: Colors.grey[200],
@@ -59,32 +104,11 @@ class CarTileGastos extends StatelessWidget {
                                     Divider(color: Colors.black.withOpacity(0.5)),
                                     Column(
                                         children: [
-                                          Text("Data: ", textAlign: TextAlign.left,),
-                                          Text("Total R\$256,90"),
-                                          Text(" Litro R\$4,70"),
-                                          Text(" Tipo: Gasolina"),
+                                          Text("Total: $precoTotal"),
+                                          Text(" Litro $precoLitro"),
+                                          Text(" Tipo: $tipo"),
                                         ],
-                                    ),
-                                    Divider(color: Colors.black.withOpacity(0.5)),
-                                    Column(
-                                      children: [
-                                        Text("Data: ", textAlign: TextAlign.left,),
-                                        Text("Total R\$206,90"),
-                                        Text(" Litro R\$3,70"),
-                                        Text(" Tipo: Etanol"),
-                                      ],
-                                    ),
-                                    Divider(color: Colors.black.withOpacity(0.5)),
-                                    Column(
-                                      children: [
-                                        Text("Data: ", textAlign: TextAlign.left,),
-                                        Text("Total R\$156,90"),
-                                        Text(" Litro R\$2,70"),
-                                        Text(" Tipo: Diesel"),
-                                      ],
-                                    ),
-                                    Divider(color: Colors.black.withOpacity(0.5)),
-                                  ],
+                                    ),],
                                 ),
 
                               ),
