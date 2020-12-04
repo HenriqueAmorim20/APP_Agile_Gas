@@ -164,7 +164,7 @@ class _AddPostoState extends State<AddPosto> {
                 child: Text('Cadastrar'),
                 onPressed: () {
                   Navigator.of(context).pop(address.text.toString());
-                  Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                 },
               )
             ],

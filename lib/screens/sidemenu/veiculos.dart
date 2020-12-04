@@ -44,8 +44,7 @@ class _VeiculosState extends State<Veiculos> {
                   iconSize: 75,
                   icon: PictureWidget5(),
                   onPressed: () async {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
 
                     //sinaliza para a widget que deve ser apresentada
                   }),

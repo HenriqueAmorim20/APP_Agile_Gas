@@ -241,6 +241,8 @@ class _MapPageState extends State<MapPage> {
                                                                         });
                                                                     }
                                                                     Navigator.pop(context);
+                                                                    Navigator.pop(context);
+                                                                    Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                                                                   }
                                                               ),
                                                             ),
