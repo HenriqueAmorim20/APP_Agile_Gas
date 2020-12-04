@@ -455,7 +455,8 @@ class _ConfiguracoesState extends State<Configuracoes>{
                             style: TextStyle(color: Colors.white)
                         ),
                         onPressed: () async {
-
+                          Navigator.pop(context);
+                            _auth.signOut();
                         }
 
                     ),

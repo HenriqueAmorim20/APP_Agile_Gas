@@ -10,7 +10,7 @@ class CarsDataBaseService {
   //collection reference
   final CollectionReference carsCollection = FirebaseFirestore.instance.collection('cars');
 
-  Future updateCarData(String uid, int  nCar, String marca, String modelo, String ano, String motor, String cor, String placa/*, String combustivel, double precoTotal, double precoLitro*/) async {
+  Future updateCarData(String uid, int  nCar, String marca, String modelo, String ano, String motor, String cor, String placa, /*, String combustivel, double precoTotal, double precoLitro*/) async {
     return await carsCollection.doc(uid + (nCar+1).toString()).set({
       'ownedByUid': uid,
       'marca': marca,

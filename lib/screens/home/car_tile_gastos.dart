@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/models/car.dart';
 
-import '../sidemenu/veiculos.dart';
-
 class CarTileGastos extends StatelessWidget {
 
   final Car car;
@@ -54,7 +52,7 @@ class CarTileGastos extends StatelessWidget {
                           content: Stack(
                             overflow: Overflow.visible,
                             children: <Widget>[
-                              Form(
+                              SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[

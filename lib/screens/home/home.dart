@@ -245,13 +245,13 @@ class _HomeState extends State<Home> {
                                                                   FontWeight
                                                                       .bold)),
                                                       onPressed: () async {
-
-                                                        var time = DateTime.now();
-                                                        carsRef.get().then((snapshot){
-                                                          snapshot.docs.forEach((doc){ //percorre os docs dos carros
-                                                            var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa'];
-                                                            if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado
-                                                              print("AKI: " + total + valor_litro);
+                                                        if(valor_litro!=null&&total!=null&&tipo_combustivel!=null&&tipo_veiculo!=null){
+                                                          var time = DateTime.now();
+                                                          carsRef.get().then((snapshot){
+                                                            snapshot.docs.forEach((doc){ //percorre os docs dos carros
+                                                              var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa'];
+                                                              if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado
+                                                                print("AKI: " + total + valor_litro);
                                                                 var carId = doc.id;
                                                                 var despesasRef = FirebaseFirestore.instance.collection('despesas');
                                                                 despesasRef.doc(carId+time.day.toString()+time.hour.toString()+time.second.toString()).set({
@@ -262,14 +262,16 @@ class _HomeState extends State<Home> {
                                                                   "idCarro": carId,
                                                                   "data": time,
                                                                 });
+                                                              }
                                                             }
-                                                          }
-                                                          );
-                                                        });
+                                                            );
+                                                          });
+                                                        }
 
 
 
 
+                                                        Navigator.pop(context);
 
                                                       }),
                                                 ),

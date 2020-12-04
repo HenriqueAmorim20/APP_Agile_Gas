@@ -79,7 +79,7 @@ class CarTile extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                                   child: Text("DELETAR VEÍCULO", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                   onPressed: () async {
-
+                                      Navigator.pop(context);
                                   }
                               ),
                             ),

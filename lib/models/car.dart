@@ -6,9 +6,6 @@ class Car{
   final String motor;
   final String cor;
   final String placa;
-  /*final String combustivel;
-  final double precoTotal;
-  final double precoLitro;*/
 
 
   Car({this.ownedByUid,
@@ -18,8 +15,5 @@ class Car{
     this.motor,
     this.cor,
     this.placa,
-    /*this.combustivel,
-    this.precoTotal,
-    this.precoLitro,*/
   });
 }
