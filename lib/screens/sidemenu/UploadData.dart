@@ -16,7 +16,7 @@ class UploadData extends StatefulWidget {
 class _UploadDataState extends State<UploadData> {
   var formKey = GlobalKey<FormState>();
 
-  String sugestion = '';
+  String sugestion = null;
   bool loading = false;
 
 
@@ -123,9 +123,11 @@ class _UploadDataState extends State<UploadData> {
                       style: TextStyle(color: Colors.white)
                   ),
                   onPressed: () async {
-                    addSugestion();
-                    showAlertDialog(context);
-                  }
+                    if(sugestion!=null) { 
+                      addSugestion();
+                      showAlertDialog1(context);
+                    }  else showAlertDialog2(context);
+                    }
 
               ),
             ],
@@ -139,7 +141,7 @@ class _UploadDataState extends State<UploadData> {
     );
 
   }
-  showAlertDialog(BuildContext context)
+  showAlertDialog1(BuildContext context)
   {
     // configura o button
     Widget okButton = FlatButton(
@@ -154,6 +156,31 @@ class _UploadDataState extends State<UploadData> {
     AlertDialog alerta = AlertDialog(
       title: Text(""),
       content: Text("Sugestão enviada, obrigado!"),
+      actions: [
+        okButton,
+      ],
+    );
+    // exibe o dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alerta;
+      },
+    );
+  }
+  showAlertDialog2(BuildContext context)
+  {
+    // configura o button
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alerta = AlertDialog(
+      title: Text(""),
+      content: Text("Sugestão inválida!"),
       actions: [
         okButton,
       ],

@@ -256,16 +256,16 @@ class _HomeState extends State<Home> {
                                                                       .bold)),
                                                       onPressed: () async {
 
-                                                        var time = DateTime.now(); //pega o momento que o abastecimento foi realizado
-
-                                                        //adicionando os dados à coleção despesas
-                                                        carsRef.get().then((snapshot){ //acessa os docs dos carros
-                                                          snapshot.docs.forEach((doc){ //percorre os docs dos carros
-                                                            var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa']; //variável para buscar os carros igual o forms
-                                                            if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado no forms
-                                                                var carId = doc.id; //pega o id do carro que encontrado
-                                                                var despesasRef = FirebaseFirestore.instance.collection('despesas'); //acessa a coleção despesas
-                                                                despesasRef.doc(carId+time.day.toString()+time.hour.toString()+time.second.toString()).set({ //adiciona os dados
+                                                        if(valor_litro!=null&&total!=null&&tipo_combustivel!=null&&tipo_veiculo!=null){
+                                                          var time = DateTime.now();
+                                                          carsRef.get().then((snapshot){
+                                                            snapshot.docs.forEach((doc){ //percorre os docs dos carros
+                                                              var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa'];
+                                                              if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado
+                                                                print("AKI: " + total + valor_litro);
+                                                                var carId = doc.id;
+                                                                var despesasRef = FirebaseFirestore.instance.collection('despesas');
+                                                                despesasRef.doc(carId+time.day.toString()+time.hour.toString()+time.second.toString()).set({
                                                                   "precoTotal": total,
                                                                   "precoLitro": valor_litro,
                                                                   "combustivel": tipo_combustivel,
@@ -273,16 +273,13 @@ class _HomeState extends State<Home> {
                                                                   "idCarro": carId,
                                                                   "data": time,
                                                                 });
+                                                              }
                                                             }
-                                                          }
-                                                          );
-                                                        });
-                                                        //terminando adição dos dados à coleção despesas
 
+                                                            );
+                                                          });
+                                                        }
                                                         Navigator.pop(context);
-
-
-
 
                                                       }),
                                                 ),
@@ -437,6 +434,7 @@ class _HomeState extends State<Home> {
                           alignment: Alignment(-1.3, 0),
                         ),
                         onTap: () {
+                          Navigator.pop(context);
                           Navigator.pop(context);
                           _auth.signOut();
                         }),

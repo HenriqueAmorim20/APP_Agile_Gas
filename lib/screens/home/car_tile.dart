@@ -133,13 +133,6 @@ class CarTile extends StatelessWidget {
 
                                     Navigator.pop(context);
 
-
-
-
-
-
-
-
                                   }
                               ),
                             ),

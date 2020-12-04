@@ -576,32 +576,6 @@ class _ConfiguracoesState extends State<Configuracoes>{
                                 );
                               });
 
-                          /*final despesasRef = FirebaseFirestore.instance.collection('despesas');
-                          final carsRef = FirebaseFirestore.instance.collection('cars');
-                          var carId;
-                          //adicionando os dados à coleção despesas
-                          carsRef.get().then((snapshot){ //acessa os docs dos carros
-                            snapshot.docs.forEach((doc){ //percorre os docs dos carros
-                              if(doc.data()['ownedByUid'] == user.uid){ //até encontrar o carro selecionado no forms
-                                carId = doc.id; //pega o id do carro que encontrado
-                                carsRef.doc(carId).delete(); //deleta o carro
-                              }
-                            });
-                          });
-
-                          despesasRef.get().then((snapshot){ //acessa os docs dos gastos
-                            snapshot.docs.forEach((doc){
-                              if(carId == doc.data()['idCarro']){ //encontra os dados dos carros deletados
-                                despesasRef.doc(doc.id).delete(); //deleta os gastos
-                              }
-                            });
-                          });
-
-                          final usersRef = FirebaseFirestore.instance.collection('users');
-                          usersRef.doc(user.uid).delete();*/
-
-
-
                         }
 
                     ),
