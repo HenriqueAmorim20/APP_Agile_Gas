@@ -38,11 +38,11 @@ class _AddPostoState extends State<AddPosto> {
   bool loading;
   var currentLocation;
   bool sucess;
-
+  var time = DateTime.now( );
   String prGasol;
   String prEtan;
   String prDie;
-  String dataCad;
+  String dataCad='';
 
   bool cadastrar;
 
@@ -156,31 +156,6 @@ class _AddPostoState extends State<AddPosto> {
                             val); //mude o valor da variável email para o valor do campo
                       }),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextFormField(
-                      cursorColor: Colors.black.withOpacity(0.6),
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                      decoration: textInputDecoration.copyWith(
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
-                        hintText: 'Data: ex 02/12/2020',
-                        hintStyle: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.black.withOpacity(0.6)),
-                      ),
-                      validator: (val) => val.isEmpty
-                          ? 'Data inválida.'
-                          : null, //verifica se o campo está vazio
-                      onChanged: (val) {
-                        //toda vez que o valor do campo mudar
-                        setState(() => dataCad =
-                            val); //mude o valor da variável email para o valor do campo
-                      }),
-                ),
               ]),
             ),
             actions: <Widget>[
@@ -249,6 +224,10 @@ class _AddPostoState extends State<AddPosto> {
                       sucess = true;
                     }
                     if (sucess == true) {
+                      String dia = time.day.toString();
+                      String mes  = time.month.toString();
+                      String ano = time.year.toString();
+                      dataCad = dia+'/'+mes+'/'+ano;
                       GeoFirePoint point = geo.point(
                           latitude: tapped.latitude,
                           longitude: tapped.longitude);
