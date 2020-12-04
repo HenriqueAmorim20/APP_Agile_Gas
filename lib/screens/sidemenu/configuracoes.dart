@@ -27,9 +27,13 @@ class _ConfiguracoesState extends State<Configuracoes>{
   String novo_nome='';
   String novo_email='';
   String novo_cpf='';
+  String senhaDel = '';
 
   @override
   Widget build(BuildContext context){
+
+    final user = Provider.of<AgileGasUser>(context, listen: false);
+
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.black,
       appBar: new AppBar(
@@ -346,8 +350,7 @@ class _ConfiguracoesState extends State<Configuracoes>{
                                                   ),
 
                                                 )
-                                            ),
-                                            Padding(
+                                            ), Padding(
                                               padding: EdgeInsets.all(8.0),
                                               child: TextFormField(
                                                   cursorColor: Colors.black.withOpacity(0.6),
@@ -455,8 +458,124 @@ class _ConfiguracoesState extends State<Configuracoes>{
                             style: TextStyle(color: Colors.white)
                         ),
                         onPressed: () async {
-                          Navigator.pop(context);
-                            _auth.signOut();
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  backgroundColor: Colors.grey[200],
+                                  content: Stack(
+                                    overflow: Overflow.visible,
+                                    children: <Widget>[
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+
+                                          children: <Widget>[
+                                            Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Text("Delete seu usário. Atenção!",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+
+                                                )
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: TextFormField(
+                                                  cursorColor: Colors.black.withOpacity(0.6),
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  decoration: textInputDecoration.copyWith(
+                                                    contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                                    hintText: 'Valide sua senha',
+                                                    hintStyle: TextStyle(fontSize: 15.0, color: Colors.black.withOpacity(0.6)),
+                                                  ),
+                                                  validator: (val) => val.isEmpty ? 'Senha inválido.' : null, //verifica se o campo está vazio
+                                                  onChanged: (val) { //toda vez que o valor do campo mudar
+                                                    setState(() => senhaDel = val);
+                                                  }
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.bottomLeft,
+                                                  margin: EdgeInsets.symmetric(horizontal: 17),
+                                                  child:RaisedButton(
+                                                    color: Colors.red,
+                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                                    child: Text("CANCELAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  alignment: Alignment.bottomRight,
+                                                  margin: EdgeInsets.symmetric(horizontal: 0),
+                                                  child: RaisedButton(
+                                                      color: Colors.red,
+                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                                                      child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                                      onPressed: () async {
+                                                        final despesasRef = FirebaseFirestore.instance.collection('despesas');
+                                                        final carsRef = FirebaseFirestore.instance.collection('cars');
+                                                        var carId;
+
+                                                        carsRef.get().then((snapshot){ //acessa os docs dos carros
+                                                          snapshot.docs.forEach((doc){ //percorre os docs dos carros
+                                                            if(doc.data()['ownedByUid'] == user.uid){ //até encontrar o carro selecionado no forms
+                                                              carId = doc.id; //pega o id do carro que encontrado
+                                                              carsRef.doc(carId).delete(); //deleta o carro
+                                                            }
+                                                          });
+                                                        });
+
+                                                        despesasRef.get().then((snapshot){ //acessa os docs dos gastos
+                                                          snapshot.docs.forEach((doc){
+                                                            if(carId == doc.data()['idCarro']){ //encontra os dados dos carros deletados
+                                                              despesasRef.doc(doc.id).delete(); //deleta os gastos
+                                                            }
+                                                          });
+                                                        });
+
+                                                        final usersRef = FirebaseFirestore.instance.collection('users');
+
+                                                        usersRef.get().then((snapshot){
+                                                          snapshot.docs.forEach((doc){ //percorre os docs
+                                                            if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+                                                              _auth.deleteUser(doc.data()['email'], senhaDel);  //atualiza o email
+                                                              usersRef.doc(doc.id).delete();
+                                                            }
+                                                          });
+                                                        });
+
+                                                        Navigator.pop(context);
+
+
+
+
+                                                      }
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+
                         }
 
                     ),

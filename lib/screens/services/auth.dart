@@ -48,6 +48,11 @@ class AuthService { // interagir com as formas de autenticação do firebase
     }
   }
 
+  Future deleteUser(String oldEmail, String password) async {
+    UserCredential result = await _auth.signInWithEmailAndPassword(email: oldEmail, password: password);
+    result.user.delete();
+  }
+
   Future changeEmail(String newEmail, String oldEmail, String password) async {
     UserCredential result = await _auth.signInWithEmailAndPassword(email: oldEmail, password: password);
     User user = result.user;

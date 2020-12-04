@@ -10,7 +10,6 @@ import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
 import 'package:agile_gas_app/shared/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:agile_gas_app/models/agilegasuser.dart';
-import 'package:agile_gas_app/models/car.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
@@ -19,9 +18,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   final AuthService _auth = AuthService();
 
-  String nome = 'Bem-Vindo(a)';
+  String nome = '';
 
   List<String> _combustivel = ['Gasolina', 'Etanol', 'Diesel'];
   String tipo_combustivel;
@@ -39,11 +39,21 @@ class _HomeState extends State<Home> {
     //capturar a lista de carros
     final user = Provider.of<AgileGasUser>(context, listen: false);
     final carsRef = FirebaseFirestore.instance.collection('cars');
+    final usersRef = FirebaseFirestore.instance.collection('users');
 
     var tempModelo = '';
     var tempPlaca = '';
     var espaco = '';
     var tempString = '';
+
+    usersRef.get().then((snapshot){
+      snapshot.docs.forEach((doc){ //percorre os docs
+        if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+          nome = doc.data()['name'];
+        }
+      });
+    });
+
 
     _veiculo.clear();
     carsRef.get().then((snapshot){
@@ -245,6 +255,7 @@ class _HomeState extends State<Home> {
                                                                   FontWeight
                                                                       .bold)),
                                                       onPressed: () async {
+
                                                         if(valor_litro!=null&&total!=null&&tipo_combustivel!=null&&tipo_veiculo!=null){
                                                           var time = DateTime.now();
                                                           carsRef.get().then((snapshot){
@@ -264,13 +275,10 @@ class _HomeState extends State<Home> {
                                                                 });
                                                               }
                                                             }
+
                                                             );
                                                           });
                                                         }
-
-
-
-
                                                         Navigator.pop(context);
 
                                                       }),
@@ -492,7 +500,7 @@ class _HomeState extends State<Home> {
           Positioned(
               bottom: 12.0,
               left: 16.0,
-              child: Text("Olá, $nome!",
+              child: Text("Olá, $nome!" ,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
