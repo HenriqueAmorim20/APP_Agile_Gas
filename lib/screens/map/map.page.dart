@@ -228,7 +228,33 @@ class _MapPageState extends State<MapPage> {
                                                                   child: Text("CONFIRMAR", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                                                   onPressed: () async {
                                                                     if(prDie!=null&&prEtan!=null&&prGasol!=null&&dataCad!=null){
-                                                                      //ATUALIZAR O BANCO DE DADOS
+                                                                        String geohash = specify['geohash'];
+                                                                        String id = '';
+
+                                                                        var postosRef = FirebaseFirestore.instance.collection('postos');
+
+
+
+                                                                        postosRef.get().then((snapshot){
+                                                                          snapshot.docs.forEach((doc){ //percorre os docs dos carros
+                                                                            if(geohash == doc.data()['position:geohash']){ //até encontrar o carro selecionado
+                                                                              postosRef.doc(doc.id).update({
+                                                                                "precogasolina": prGasol,
+                                                                                "precoetanol": prEtan,
+                                                                                "precodiesel": prDie,
+                                                                                "datacad": dataCad,
+                                                                              });
+                                                                            }
+                                                                          }
+
+                                                                          );
+                                                                        });
+
+
+
+
+
+
                                                                     }
                                                                     Navigator.pop(context);
                                                                     Navigator.pop(context);
