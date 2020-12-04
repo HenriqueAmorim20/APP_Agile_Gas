@@ -189,10 +189,7 @@ class _AddPostoState extends State<AddPosto> {
                 child: Text('Cadastrar'),
                 onPressed: () {
                   Navigator.of(context).pop(address.text.toString());
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home()),
-                  );
+                  Navigator.pop(context);
                 },
               )
             ],
@@ -266,10 +263,7 @@ class _AddPostoState extends State<AddPosto> {
                         'datacad': dataCad,
                       });
                       setState(() {});
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
+                      Navigator.pop(context);
                     }
                   },
                   mapType: MapType.hybrid,

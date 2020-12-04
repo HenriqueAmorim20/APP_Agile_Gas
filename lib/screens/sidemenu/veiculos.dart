@@ -45,10 +45,7 @@ class _VeiculosState extends State<Veiculos> {
                   icon: PictureWidget5(),
                   onPressed: () async {
                     Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
+                    Navigator.pop(context);
 
                     //sinaliza para a widget que deve ser apresentada
                   }),
@@ -359,6 +356,7 @@ class _VeiculosState extends State<Veiculos> {
             ),
             body: CarHome(),
           );
+
   }
 }
 
