@@ -10,7 +10,6 @@ import 'package:agile_gas_app/screens/sidemenu/configuracoes.dart';
 import 'package:agile_gas_app/shared/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:agile_gas_app/models/agilegasuser.dart';
-import 'package:agile_gas_app/models/car.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
@@ -19,9 +18,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   final AuthService _auth = AuthService();
 
-  String nome = 'Bem-Vindo(a)';
+  String nome = '';
 
   List<String> _combustivel = ['Gasolina', 'Etanol', 'Diesel'];
   String tipo_combustivel;
@@ -39,11 +39,21 @@ class _HomeState extends State<Home> {
     //capturar a lista de carros
     final user = Provider.of<AgileGasUser>(context, listen: false);
     final carsRef = FirebaseFirestore.instance.collection('cars');
+    final usersRef = FirebaseFirestore.instance.collection('users');
 
     var tempModelo = '';
     var tempPlaca = '';
     var espaco = '';
     var tempString = '';
+
+    usersRef.get().then((snapshot){
+      snapshot.docs.forEach((doc){ //percorre os docs
+        if(doc.data()['uid'] == user.uid){ //até encontrar o do usuario atual
+          nome = doc.data()['name'];
+        }
+      });
+    });
+
 
     _veiculo.clear();
     carsRef.get().then((snapshot){
@@ -246,15 +256,16 @@ class _HomeState extends State<Home> {
                                                                       .bold)),
                                                       onPressed: () async {
 
-                                                        var time = DateTime.now();
-                                                        carsRef.get().then((snapshot){
+                                                        var time = DateTime.now(); //pega o momento que o abastecimento foi realizado
+
+                                                        //adicionando os dados à coleção despesas
+                                                        carsRef.get().then((snapshot){ //acessa os docs dos carros
                                                           snapshot.docs.forEach((doc){ //percorre os docs dos carros
-                                                            var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa'];
-                                                            if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado
-                                                              print("AKI: " + total + valor_litro);
-                                                                var carId = doc.id;
-                                                                var despesasRef = FirebaseFirestore.instance.collection('despesas');
-                                                                despesasRef.doc(carId+time.day.toString()+time.hour.toString()+time.second.toString()).set({
+                                                            var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa']; //variável para buscar os carros igual o forms
+                                                            if(carNomePlaca == tipo_veiculo){ //até encontrar o carro selecionado no forms
+                                                                var carId = doc.id; //pega o id do carro que encontrado
+                                                                var despesasRef = FirebaseFirestore.instance.collection('despesas'); //acessa a coleção despesas
+                                                                despesasRef.doc(carId+time.day.toString()+time.hour.toString()+time.second.toString()).set({ //adiciona os dados
                                                                   "precoTotal": total,
                                                                   "precoLitro": valor_litro,
                                                                   "combustivel": tipo_combustivel,
@@ -266,7 +277,9 @@ class _HomeState extends State<Home> {
                                                           }
                                                           );
                                                         });
+                                                        //terminando adição dos dados à coleção despesas
 
+                                                        Navigator.pop(context);
 
 
 
@@ -490,7 +503,7 @@ class _HomeState extends State<Home> {
           Positioned(
               bottom: 12.0,
               left: 16.0,
-              child: Text("Olá, $nome!",
+              child: Text("Olá, $nome!" ,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:agile_gas_app/models/car.dart';
 
@@ -79,6 +80,65 @@ class CarTile extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                                   child: Text("DELETAR VEÍCULO", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                                   onPressed: () async {
+
+                                    final usersRef = FirebaseFirestore.instance.collection('users');
+                                    final despesasRef = FirebaseFirestore.instance.collection('despesas');
+                                    final carsRef = FirebaseFirestore.instance.collection('cars');
+                                    //adicionando os dados à coleção despesas
+                                    carsRef.get().then((snapshot){ //acessa os docs dos carros
+                                      snapshot.docs.forEach((doc){ //percorre os docs dos carros
+                                        var carNomePlaca = doc.data()['modelo'] + " " + doc.data()['placa']; //variável para buscar os carros igual o selecionado
+                                        var esteCarro = car.modelo + " " + car.placa;
+
+                                        if(carNomePlaca == esteCarro){ //até encontrar o carro selecionado no forms
+
+                                          var carId = doc.id; //pega o id do carro que encontrado
+                                          var ownedBy = doc.data()['ownedByUid'];
+
+                                          usersRef.get().then((snapshot){ //acessa os docs dos gastos
+                                            snapshot.docs.forEach((doc){
+                                              if(ownedBy == doc.id){ //encontra os dados dos carros deletados
+                                                int ncars = doc.data()['cars'];
+                                                ncars = ncars - 1;
+                                                usersRef.doc(ownedBy).update({"cars": ncars});
+                                              }
+                                            });
+                                          });
+
+
+
+                                          carsRef.doc(carId).delete(); //deleta o carro
+
+
+                                          despesasRef.get().then((snapshot){ //acessa os docs dos gastos
+                                            snapshot.docs.forEach((doc){
+                                              if(carId == doc.data()['idCarro']){ //encontra os dados dos carros deletados
+                                                despesasRef.doc(doc.id).delete(); //deleta os gastos
+                                              }
+                                            });
+                                          });
+
+
+
+
+
+
+
+
+
+                                        }
+                                      });
+                                    });
+                                    //terminando adição dos dados à coleção despesas
+
+                                    Navigator.pop(context);
+
+
+
+
+
+
+
 
                                   }
                               ),
