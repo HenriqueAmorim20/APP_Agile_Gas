@@ -1,4 +1,4 @@
-# agile_gas_app
+# agile_gas_app obs.: A licença do bando de dados firebase já está expirada
 
 A new Flutter application.
 
